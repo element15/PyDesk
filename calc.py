@@ -2,19 +2,48 @@
 
 # calc.py
 # 
-# Loads a list of user-defined functions for using the python interpreter as a
-# calculator. Analogue to .bashrc, .zshrc, and the like.
+# Loads a list set of functions and variables for everyday calculator
+# functionality. Written for use with Python 3.
+
+
+
+# This is free and unencumbered software released into the public domain.
+# 
+# Anyone is free to copy, modify, publish, use, compile, sell, or
+# distribute this software, either in source code form or as a compiled
+# binary, for any purpose, commercial or non-commercial, and by any
+# means.
+# 
+# In jurisdictions that recognize copyright laws, the author or authors
+# of this software dedicate any and all copyright interest in the
+# software to the public domain. We make this dedication for the benefit
+# of the public at large and to the detriment of our heirs and
+# successors. We intend this dedication to be an overt act of
+# relinquishment in perpetuity of all present and future rights to this
+# software under copyright law.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+
 
 import math
+from datetime import datetime
+from fractions import Fraction
 
 # Evaluate the quadratic formula for ax^2+bx+c=0
+def quad_det(a,b,c):
+    return b**2-4*a*c
 def quad(a,b,c):
-    determinant = math.sqrt(b**2-4*a*c)
-    denomimator = 2*a
-    return [(-b+determinant)/denominator,(-b-determinant)/denominator]
+    return [(-b+quad_det(a,b,c))/(2*a),(-b-quad_det(a,b,c))/(2*a)]
 
 # Convert a number to scientific notation, 5 significant figures
-def sci(x): return "{:.4e}".format(x)
+def sci(x):
+    return "{:.4e}".format(x)
 
 ### Constants ###
 # Gas constant
@@ -25,6 +54,22 @@ kw = 1.01e-14 # Equilibrium constant for auto-ionization of water, kw
 pi = math.pi
 e = math.e
 
+### Fractions ###
+def getfrac(x):
+    return Fraction(x).limit_denominator()
+def frac(x):
+    print( getfract(x) )
+def mix(x):
+    fraction = getfrac(x)
+    numerator = fraction.numerator
+    denominator = fraction.denominator
+    if numerator > denominator:
+        whole = math.floor(x)
+        mixed_numerator = numerator - whole * denominator
+        print("%d %d/%d" % (whole, mixed_numerator, denominator))
+    else:
+        print("%d/%d" % (numerator, denominator))
+
 ### Convenience Functions ###
 def ln(x): return math.log(x)
 def log(x): return math.log10(x)
@@ -33,10 +78,11 @@ def deg(x): return math.degrees(x)
 def e(x): return math.exp(x)
 def logbase(x,y): return math.log(x,y)
 def sqrt(x): return math.sqrt(x)
-def cumsum(*x): return math.fsum(*x)
+def sum(*x): return math.fsum(*x)
 def abs(x): return math.fabs(x)
 def fact(x): return math.factorial(x)
 def gamma(x): return math.gamma(x)
+def hypot(x): return math.hypot(x)
 def sin(x): return math.sin(x)
 def cos(x): return math.cos(x)
 def sec(x): return 1/math.cos(x)
@@ -48,8 +94,13 @@ def acos(x): return math.acos(x)
 def atan(x): return math.atan(x)
 def sinh(x): return math.sinh(x)
 def cosh(x): return math.cosh(x)
+def tanh(x): return math.tanh(x)
 def asinh(x): return math.asinh(x)
 def acosh(x): return math.acosh(x)
+def atanh(x): return math.atanh(x)
+def floor(x): return math.floor(x)
+def ceil(x): return math.ceil(x)
+
 
 # Compute approximate golden ratios using fibonacci
 def gold(n):
@@ -64,10 +115,9 @@ def gold(n):
         thisfib = fib1 + fib2
     ratio = thisfib / fib1
     print(str(thisfib) + "/" + str(fib1) + " = " + str(ratio))
-
+    
+    
 ### MiFi Data Usage Statistics ###
-from datetime import datetime
-
 def daysInMonth(month):
     shortmonths = [4,6,9,11]
     if month in shortmonths:
