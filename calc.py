@@ -110,5 +110,5 @@ def data(gb,total):
         print("Days to catch up: %d" % daysBehind)
 
 
-print("Loaded .pythonrc")
+print("Loaded calc.py")
 ### End of script ###
