@@ -3,7 +3,8 @@
 # calc.py
 # 
 # Loads a list set of functions and variables for everyday calculator
-# functionality. Written for use with Python 3.
+# functionality. Written for use with Python 3, but *should* work fine
+# with Python 2.
 
 
 # This is free and unencumbered software released into the public domain.
@@ -57,7 +58,6 @@ e = math.e
 f_zero = -459.67
 c_zero = -273.15
 k_zero = 0
-r_zero = 0
 def valid_temp(temp,zero):
     if temp < zero:
         print("Impossibru!")
@@ -157,13 +157,16 @@ def daysInMonth(month):
         return 31
 
 def data(gb,total):
+    
+    reset_day = 13 # Day of month on which billing month rolls over
+    
     now = datetime.now()
-    if now.day >= 13:
+    if now.day >= reset_day:
         totalDays = daysInMonth(now.month)
-        cycleDay = now.day - 12
+        cycleDay = now.day - (reset_day - 1)
     else:
         totalDays = daysInMonth(now.month - 1)
-        cycleDay = now.day + totalDays - 12
+        cycleDay = now.day + totalDays - (reset_day - 1)
     
     cycleUsage = gb * 1024
     idealRate = total * 1024 / totalDays
