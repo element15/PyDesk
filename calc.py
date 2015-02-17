@@ -6,7 +6,6 @@
 # functionality. Written for use with Python 3.
 
 
-
 # This is free and unencumbered software released into the public domain.
 # 
 # Anyone is free to copy, modify, publish, use, compile, sell, or
@@ -53,6 +52,36 @@ r_joule = 8.314462175 # J*K^-1*mol^-1
 kw = 1.01e-14 # Equilibrium constant for auto-ionization of water, kw
 pi = math.pi
 e = math.e
+
+### Temperature Conversions ###
+f_zero = -459.67
+c_zero = -273.15
+k_zero = 0
+r_zero = 0
+def valid_temp(temp,zero):
+    if temp < zero:
+        print("Impossibru!")
+        return float('NaN')
+    return round(temp,8)
+def fc_temp(f):
+    c = (f-32) * (5/9)
+    return valid_temp(c,c_zero)
+def cf_temp(c):
+    f = c * (9/5) + 32
+    return valid_temp(f,f_zero)
+def ck_temp(c):
+    k = c + 273.15
+    return valid_temp(k,k_zero)
+def kc_temp(k):
+    c = k - 273.15
+    return valid_temp(c,c_zero)
+def fk_temp(f):
+    k = (f+459.67) * (5/9)
+    return valid_temp(k,k_zero)
+def kf_temp(k):
+    f = k * (9/5) - 459.67
+    return valid_temp(f,f_zero)
+
 
 ### Fractions ###
 def getfrac(x):
