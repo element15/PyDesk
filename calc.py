@@ -1,5 +1,6 @@
 #!/usr/local/bin/python3 -i
 
+script_version = "15-225-a"
 # calc.py
 # 
 # Loads a list set of functions and variables for everyday calculator
@@ -87,7 +88,7 @@ def kf_temp(k):
 def getfrac(x):
     return Fraction(x).limit_denominator()
 def frac(x):
-    print( getfract(x) )
+    print( getfrac(x) )
 def mix(x):
     fraction = getfrac(x)
     numerator = fraction.numerator
@@ -177,19 +178,19 @@ def data(gb,total):
     coefficient = cycleRate / idealRate
     daysUsed = cycleUsage / idealRate
     
-    print("Cycle Usage: %f MB" % cycleUsage)
-    print("Ideal Usage: %f MB" % idealUsage)
-    print("Net Usage: %f MB" % netUsage)
-    print("Cycle Rate: %f MB/day" % cycleRate)
-    print("Ideal Rate: %f MB/day" % idealRate)
-    print("Net Rate: %f MB/day" % netRate)
-    print("Use Coefficient: %f" % coefficient)
-    print("Cycle Day: %d / %d" % (cycleDay, totalDays))
-    print("Ideal Day: %d" % daysUsed)
+    print("     Cycle Usage: %f MB" % cycleUsage)
+    print("     Ideal Usage: %f MB" % idealUsage)
+    print("       Net Usage: %f MB" % netUsage)
+    print("      Cycle Rate: %f MB/day" % cycleRate)
+    print("      Ideal Rate: %f MB/day" % idealRate)
+    print("        Net Rate: %f MB/day" % netRate)
+    print(" Use Coefficient: %f" % coefficient)
+    print("       Cycle Day: %d / %d" % (cycleDay, totalDays))
+    print("       Ideal Day: %d" % daysUsed)
     
     if netUsage > 0:
         daysBehind = netUsage / idealRate + 1
-        print("Days to catch up: %d" % daysBehind)
+        print("        Catch up: %d" % daysBehind)
 
 
 print("Loaded calc.py")
