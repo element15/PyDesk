@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "15-225-a"
+script_version = "15-225b"
 # calc.py
 # 
 # Loads a list set of functions and variables for everyday calculator
@@ -148,7 +148,7 @@ def gold(n):
     
     
 ### MiFi Data Usage Statistics ###
-def daysInMonth(month):
+def days_in_month(month):
     shortmonths = [4,6,9,11]
     if month in shortmonths:
         return 30
@@ -163,10 +163,10 @@ def data(gb,total):
     
     now = datetime.now()
     if now.day >= reset_day:
-        totalDays = daysInMonth(now.month)
+        totalDays = days_in_month(now.month)
         cycleDay = now.day - (reset_day - 1)
     else:
-        totalDays = daysInMonth(now.month - 1)
+        totalDays = days_in_month(now.month - 1)
         cycleDay = now.day + totalDays - (reset_day - 1)
     
     cycleUsage = gb * 1024
@@ -178,12 +178,12 @@ def data(gb,total):
     coefficient = cycleRate / idealRate
     daysUsed = cycleUsage / idealRate
     
-    print("     Cycle Usage: %f MB" % cycleUsage)
-    print("     Ideal Usage: %f MB" % idealUsage)
-    print("       Net Usage: %f MB" % netUsage)
-    print("      Cycle Rate: %f MB/day" % cycleRate)
-    print("      Ideal Rate: %f MB/day" % idealRate)
-    print("        Net Rate: %f MB/day" % netRate)
+    print("     Cycle Usage: %d MB" % cycleUsage)
+    print("     Ideal Usage: %d MB" % idealUsage)
+    print("       Net Usage: %d MB" % netUsage)
+    print("      Cycle Rate: %d MB/day" % cycleRate)
+    print("      Ideal Rate: %d MB/day" % idealRate)
+    print("        Net Rate: %d MB/day" % netRate)
     print(" Use Coefficient: %f" % coefficient)
     print("       Cycle Day: %d / %d" % (cycleDay, totalDays))
     print("       Ideal Day: %d" % daysUsed)
