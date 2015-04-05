@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "15-225b"
+script_version = "15-317a"
 # calc.py
 # 
 # Loads a list set of functions and variables for everyday calculator
@@ -36,6 +36,7 @@ import math
 from datetime import datetime
 from fractions import Fraction
 
+### General Math ###
 # Evaluate the quadratic formula for ax^2+bx+c=0
 def quad_det(a,b,c):
     return b**2-4*a*c
@@ -45,6 +46,20 @@ def quad(a,b,c):
 # Convert a number to scientific notation, 5 significant figures
 def sci(x):
     return "{:.4e}".format(x)
+
+# Get the midpoint
+def mid(a, b):
+    return (a+b)/2
+def mid2(x1, y1, x2, y2):
+    return [mid(x1, x2), mid(y1, y2)]
+
+# Distance
+def dist(a, b):
+    return b-a
+def dist2(x1, y1, x2, y2):
+    return (dist(x1, x2)**2 + dist(y1, y2)**2)**0.5
+
+
 
 ### Constants ###
 # Gas constant
@@ -131,6 +146,12 @@ def atanh(x): return math.atanh(x)
 def floor(x): return math.floor(x)
 def ceil(x): return math.ceil(x)
 
+### Specialty Math ###
+# Economics
+def elastic(q1, q2, p1, p2):
+    q = dist(q1, q2) / mid(q2, q1)
+    p = dist(p1, p2) / mid(p2, p1)
+    return q/p
 
 # Compute approximate golden ratios using fibonacci
 def gold(n):
