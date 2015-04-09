@@ -9,16 +9,10 @@
 # This script may be run as a native AppleScript or as a UNIX shell script.
 
 
-# Equivilant of '~'
-set home to (the POSIX path of (path to home folder))
+# Modify here if necessary
+set target to "~/git/PyDesk/calc.py"
 
-# Modify here if necessary. Points to ~/git/PyDesk/calc.py by default.
-set target to (home & "/git/PyDesk/calc.py")
-
-try
-    python_script
-on error
-    set python_script to POSIX file target as alias
-end try
-
-tell application "Terminal" to open python_script
+tell application "Terminal"
+    do script "clear; " & target & "; exit"
+    activate
+end tell
