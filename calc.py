@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "15-409b"
+script_version = "15-414a"
 # calc.py
 # 
 # Loads a list set of functions and variables for everyday calculator
@@ -32,6 +32,7 @@ script_version = "15-409b"
 import math
 from datetime import datetime
 from fractions import Fraction
+from decimal import Decimal
 
 ### General Math ###
 # Evaluate the quadratic formula for ax^2+bx+c=0
@@ -40,9 +41,15 @@ def quad_det(a,b,c):
 def quad(a,b,c):
     return [(-b+quad_det(a,b,c))/(2*a),(-b-quad_det(a,b,c))/(2*a)]
 
-# Convert a number to scientific notation, 5 significant figures
+# Convert x to scientific notation
+sigfig = 4
 def sci(x):
-    return "{:.4e}".format(x)
+    string = "{:." + str(sigfig - 1) + "e}"
+    return string.format(x)
+
+# Convert x to engineering notation
+def eng(x):
+    return Decimal(str(x)).normalize().to_eng_string()
 
 # Get the midpoint
 def mid(a, b):
@@ -120,7 +127,6 @@ def deg(x): return math.degrees(x)
 def e(x): return math.exp(x)
 def logbase(x,y): return math.log(x,y)
 def sqrt(x): return math.sqrt(x)
-def sum(*x): return math.fsum(*x)
 def abs(x): return math.fabs(x)
 def fact(x): return math.factorial(x)
 def gamma(x): return math.gamma(x)
@@ -142,6 +148,7 @@ def acosh(x): return math.acosh(x)
 def atanh(x): return math.atanh(x)
 def floor(x): return math.floor(x)
 def ceil(x): return math.ceil(x)
+def sum(*x): return math.fsum(x)
 
 ### Specialty Math ###
 # Economics
