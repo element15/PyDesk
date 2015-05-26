@@ -1,26 +1,26 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "15-414a"
+script_version = "15-525a"
 # calc.py
-# 
+#
 # Loads a list set of functions and variables for everyday calculator
 # functionality. Written for use with Python 3, but *should* work fine with
 # Python 2.
-# 
-# 
+#
+#
 # This is free and unencumbered software released into the public domain.
-# 
+#
 # Anyone is free to copy, modify, publish, use, compile, sell, or distribute
 # this software, either in source code form or as a compiled binary, for any
 # purpose, commercial or non-commercial, and by any means.
-# 
+#
 # In jurisdictions that recognize copyright laws, the author or authors of this
 # software dedicate any and all copyright interest in the software to the public
 # domain. We make this dedication for the benefit of the public at large and to
 # the detriment of our heirs and successors. We intend this dedication to be an
 # overt act of relinquishment in perpetuity of all present and future rights to
 # this software under copyright law.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -172,7 +172,7 @@ def gold(n):
     print(str(thisfib) + "/" + str(fib1) + " = " + str(ratio))
     
     
-### MiFi Data Usage Statistics ###
+### Cellular Data Statistics ###
 def days_in_month(month):
     shortmonths = [4,6,9,11]
     if month in shortmonths:
@@ -203,12 +203,12 @@ def data(gb,total):
     coefficient = cycleRate / idealRate
     daysUsed = cycleUsage / idealRate
     
-    print("     Cycle Usage: %d MB" % cycleUsage)
-    print("     Ideal Usage: %d MB" % idealUsage)
-    print("       Net Usage: %d MB" % netUsage)
-    print("      Cycle Rate: %d MB/day" % cycleRate)
-    print("      Ideal Rate: %d MB/day" % idealRate)
-    print("        Net Rate: %d MB/day" % netRate)
+    print("     Cycle Usage: %d MiB" % cycleUsage)
+    print("     Ideal Usage: %d MiB" % idealUsage)
+    print("       Net Usage: %d MiB" % netUsage)
+    print("      Cycle Rate: %d MiB/day" % cycleRate)
+    print("      Ideal Rate: %d MiB/day" % idealRate)
+    print("        Net Rate: %d MiB/day" % netRate)
     print(" Use Coefficient: %f" % coefficient)
     print("       Cycle Day: %d / %d" % (cycleDay, totalDays))
     print("       Ideal Day: %d" % daysUsed)
