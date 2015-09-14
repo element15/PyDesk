@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "15-901a"
+script_version = "15-914a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -73,6 +73,7 @@ r_joule = 8.314462175 # J*K^-1*mol^-1
 kw = 1.01e-14 # Equilibrium constant for auto-ionization of water, kw
 pi = math.pi
 e = math.e
+g = 9.807 # Acceleration due to gravity in m*s^-1
 
 ### Temperature Conversions ###
 f_zero = -459.67
@@ -123,7 +124,7 @@ def mix(x):
 def ln(x): return math.log(x)
 def log(x): return math.log10(x)
 def logbase(x, y): return math.log(x, y)
-def e(x): return math.exp(x)
+def exp(x): return math.exp(x)
 def pow(x, y): return math.pow(x, y)
 def sqrt(x): return math.sqrt(x)
 def nrt(x, y): return math.pow(x, 1/y)
