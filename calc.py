@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "15-b04a"
+script_version = "15-914b"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -39,7 +39,7 @@ from decimal import Decimal
 def quad_det(a,b,c):
     return b**2-4*a*c
 def quad(a,b,c):
-    return [(-b+quad_det(a,b,c))/(2*a),(-b-quad_det(a,b,c))/(2*a)]
+    return [(-b+sqrt(quad_det(a,b,c)))/(2*a),(-b-sqrt(quad_det(a,b,c)))/(2*a)]
 
 # Convert x to scientific notation
 sigfig = 4
@@ -73,6 +73,7 @@ r_joule = 8.314462175 # J*K^-1*mol^-1
 kw = 1.01e-14 # Equilibrium constant for auto-ionization of water, kw
 pi = math.pi
 e = math.e
+g = 9.807 # Acceleration due to gravity in m*s^-1
 
 ### Temperature Conversions ###
 f_zero = -459.67
@@ -122,33 +123,51 @@ def mix(x):
 ### Convenience Functions ###
 def ln(x): return math.log(x)
 def log(x): return math.log10(x)
-def rad(x): return math.radians(x)
-def deg(x): return math.degrees(x)
-def e(x): return math.exp(x)
-def logbase(x,y): return math.log(x,y)
+def logbase(x, y): return math.log(x, y)
+def exp(x): return math.exp(x)
+def pow(x, y): return math.pow(x, y)
 def sqrt(x): return math.sqrt(x)
+def nrt(x, y): return math.pow(x, 1/y)
 def abs(x): return math.fabs(x)
 def fact(x): return math.factorial(x)
 def gamma(x): return math.gamma(x)
 def hypot(x): return math.hypot(x)
-def sin(x): return math.sin(x)
-def cos(x): return math.cos(x)
-def sec(x): return 1/math.cos(x)
-def csc(x): return 1/math.sin(x)
-def tan(x): return math.tan(x)
-def cot(x): return 1/math.tan(x)
-def asin(x): return math.asin(x)
-def acos(x): return math.acos(x)
-def atan(x): return math.atan(x)
-def sinh(x): return math.sinh(x)
-def cosh(x): return math.cosh(x)
-def tanh(x): return math.tanh(x)
-def asinh(x): return math.asinh(x)
-def acosh(x): return math.acosh(x)
-def atanh(x): return math.atanh(x)
 def floor(x): return math.floor(x)
 def ceil(x): return math.ceil(x)
 def sum(*x): return math.fsum(x)
+# Trigonometry (degrees functions begin with 'd')
+def rad(x): return math.radians(x)
+def deg(x): return math.degrees(x)
+def sin(x): return math.sin(x)
+def dsin(x): return sin(rad(x))
+def cos(x): return math.cos(x)
+def dcos(x): return cos(rad(x))
+def sec(x): return 1/math.cos(x)
+def dsec(x): return sec(rad(x))
+def csc(x): return 1/math.sin(x)
+def dcsc(x): return csc(rad(x))
+def tan(x): return math.tan(x)
+def dtan(x): return tan(rad(x))
+def cot(x): return 1/math.tan(x)
+def dcot(x): return cot(rad(x))
+def asin(x): return math.asin(x)
+def dasin(x): return deg(asin(x))
+def acos(x): return math.acos(x)
+def dacos(x): return deg(acos(x))
+def atan(x): return math.atan(x)
+def datan(x): return deg(atan(x))
+def sinh(x): return math.sinh(x)
+def dsinh(x): return sinh(rad(x))
+def cosh(x): return math.cosh(x)
+def dcosh(x): return cosh(rad(x))
+def tanh(x): return math.tanh(x)
+def dtanh(x): return tanh(rad(x))
+def asinh(x): return math.asinh(x)
+def dasinh(x): return deg(asinh(x))
+def acosh(x): return math.acosh(x)
+def dacosh(x): return deg(acosh(x))
+def atanh(x): return math.atanh(x)
+def datanh(x): return deg(atanh(x))
 
 ### Specialty Math ###
 # Cross-multiply two vectors
@@ -174,9 +193,14 @@ def gold(n):
         thisfib = fib1 + fib2
     ratio = thisfib / fib1
     print(str(thisfib) + "/" + str(fib1) + " = " + str(ratio))
-    
-    
-### MiFi Data Usage Statistics ###
+
+# Pythagorean Theorem. Nuff said.
+def pyth(a, b):
+    return sqrt(a**2 + b**2)
+def pythleg(c, a):
+    return sqrt(c**2 - a**2)
+
+### Cellular Data Statistics ###
 def days_in_month(month):
     shortmonths = [4,6,9,11]
     if month in shortmonths:
@@ -202,23 +226,23 @@ def data(gb,total):
     idealRate = total * 1024 / totalDays
     idealUsage = idealRate * cycleDay
     cycleRate = cycleUsage / cycleDay
-    netUsage = cycleUsage - idealUsage
-    netRate = cycleRate - idealRate
+    netUsage = idealUsage - cycleUsage
+    netRate = idealRate - cycleRate
     coefficient = cycleRate / idealRate
     daysUsed = cycleUsage / idealRate
     
-    print("     Cycle Usage: %d MB" % cycleUsage)
-    print("     Ideal Usage: %d MB" % idealUsage)
-    print("       Net Usage: %d MB" % netUsage)
-    print("      Cycle Rate: %d MB/day" % cycleRate)
-    print("      Ideal Rate: %d MB/day" % idealRate)
-    print("        Net Rate: %d MB/day" % netRate)
+    print("     Cycle Usage: %d MiB" % cycleUsage)
+    print("     Ideal Usage: %d MiB" % idealUsage)
+    print("       Net Usage: %d MiB" % netUsage)
+    print("      Cycle Rate: %d MiB/day" % cycleRate)
+    print("      Ideal Rate: %d MiB/day" % idealRate)
+    print("        Net Rate: %d MiB/day" % netRate)
     print(" Use Coefficient: %f" % coefficient)
     print("       Cycle Day: %d / %d" % (cycleDay, totalDays))
     print("       Ideal Day: %d" % daysUsed)
     
-    if netUsage > 0:
-        daysBehind = netUsage / idealRate + 1
+    if netUsage < 0:
+        daysBehind = -netUsage / idealRate + 1
         print("        Catch up: %d" % daysBehind)
 
 
