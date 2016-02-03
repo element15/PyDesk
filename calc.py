@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "15-914b"
+script_version = "16-201a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -66,14 +66,31 @@ def dist2(x1, y1, x2, y2):
 
 
 ### Constants ###
-# Gas constant
-r_atm = 0.0820574614 # L*atm*mol^-1*K^-1
-r_mmhg = 62.3636711 # L*mmHg*mol^-1*K^-1
-r_joule = 8.314462175 # J*K^-1*mol^-1
-kw = 1.01e-14 # Equilibrium constant for auto-ionization of water, kw
+# General
 pi = math.pi
 e = math.e
-g = 9.807 # Acceleration due to gravity in m*s^-1
+# Chemistry and Thermodynamics
+r_atm = 0.0820574614 # Gas constant (L*atm*mol^-1*K^-1)
+r_mmhg = 62.3636711 # Gas constant (L*mmHg*mol^-1*K^-1)
+r_joule = 8.314462175 # Gas constant (J*K^-1*mol^-1)
+kw = 1.01e-14 # Equilibrium constant for auto-ionization of water
+avo = 6.022e23 # Avogadro constant (mol^-1)
+# Mechanics
+g = 9.807 # Acceleration due to gravity (m*s^-1)
+G = 6.673e-11 # Gravitational constant (N*m^2*kg*-2)
+# Electromagnetism
+ele = 1.602e-19 # Elementary charge (C)
+e0 = 8.854e-12 # Permittivity of a vacuum (F*m^-1)
+ke = 8.988e9 # Coulomb constant (N*m^2*C^-2)
+c = 2.998e8 # Speed of light in a vacuum (m*s^-1)
+# Quantum Physics
+h = 6.626e-34 # Planck constant (J*s)
+hbar = 1.054e-34 # h-bar constant (J*s)
+me = 9.109e-31 # Electron mass (kg)
+mp = 1.673e-27 # Proton mass (kg)
+mn = 1.675e-27 # Neutron mass (kg)
+ev = 1.602e-19 # Electron-volt (J)
+
 
 ### Temperature Conversions ###
 f_zero = -459.67
@@ -168,6 +185,27 @@ def acosh(x): return math.acosh(x)
 def dacosh(x): return deg(acosh(x))
 def atanh(x): return math.atanh(x)
 def datanh(x): return deg(atanh(x))
+# Convert SI prefixes to base unit
+def exp10(x, n): return x * 10**n
+def Y(x): return exp10(x, 24)
+def Z(x): return exp10(x, 21)
+def E(x): return exp10(x, 18)
+def P(x): return exp10(x, 15)
+def T(x): return exp10(x, 12)
+def G(x): return exp10(x, 9)
+def M(x): return exp10(x, 6)
+def k(x): return exp10(x, 3)
+def c(x): return exp10(x, -2)
+def m(x): return exp10(x, -3)
+def mu(x): return exp10(x, -6)
+def n(x): return exp10(x, -9)
+def angstrom(x): return exp10(x, -10)
+def p(x): return exp10(x, -12)
+def f(x): return exp10(x, -15)
+def a(x): return exp10(x, -18)
+def z(x): return exp10(x, -21)
+def y(x): return exp10(x, -24)
+
 
 ### Specialty Math ###
 # Cross-multiply two vectors
