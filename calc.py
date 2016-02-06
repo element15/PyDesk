@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "16-201a"
+script_version = "16-205a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -145,6 +145,7 @@ def exp(x): return math.exp(x)
 def pow(x, y): return math.pow(x, y)
 def sqrt(x): return math.sqrt(x)
 def nrt(x, y): return math.pow(x, 1/y)
+def rec(x): return 1/x
 def abs(x): return math.fabs(x)
 def fact(x): return math.factorial(x)
 def gamma(x): return math.gamma(x)
