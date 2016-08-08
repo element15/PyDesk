@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "16-205a"
+script_version = "16-808b"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -81,6 +81,7 @@ G = 6.673e-11 # Gravitational constant (N*m^2*kg*-2)
 # Electromagnetism
 ele = 1.602e-19 # Elementary charge (C)
 e0 = 8.854e-12 # Permittivity of a vacuum (F*m^-1)
+mu0 = math.pi / 2.5e+6 # Permiability of a vacuum (N/A^2)
 ke = 8.988e9 # Coulomb constant (N*m^2*C^-2)
 c = 2.998e8 # Speed of light in a vacuum (m*s^-1)
 # Quantum Physics
@@ -196,7 +197,7 @@ def T(x): return exp10(x, 12)
 def G(x): return exp10(x, 9)
 def M(x): return exp10(x, 6)
 def k(x): return exp10(x, 3)
-def c(x): return exp10(x, -2)
+def centi(x): return exp10(x, -2)
 def m(x): return exp10(x, -3)
 def mu(x): return exp10(x, -6)
 def n(x): return exp10(x, -9)
