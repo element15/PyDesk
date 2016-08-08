@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "16-808b"
+script_version = "16-808c"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -33,13 +33,15 @@ import math
 from datetime import datetime
 from fractions import Fraction
 from decimal import Decimal
+from random import randint
 
 ### General Math ###
 # Evaluate the quadratic formula for ax^2+bx+c=0
-def quad_det(a,b,c):
+def quad_det(a, b, c):
     return b**2-4*a*c
-def quad(a,b,c):
-    return [(-b+sqrt(quad_det(a,b,c)))/(2*a),(-b-sqrt(quad_det(a,b,c)))/(2*a)]
+def quad(a, b, c):
+    return [(-b+sqrt(quad_det(a, b, c)))/(2*a),
+            (-b-sqrt(quad_det(a, b, c)))/(2*a)]
 
 # Convert x to scientific notation
 sigfig = 4
@@ -70,20 +72,20 @@ def dist2(x1, y1, x2, y2):
 pi = math.pi
 e = math.e
 # Chemistry and Thermodynamics
-r_atm = 0.0820574614 # Gas constant (L*atm*mol^-1*K^-1)
-r_mmhg = 62.3636711 # Gas constant (L*mmHg*mol^-1*K^-1)
-r_joule = 8.314462175 # Gas constant (J*K^-1*mol^-1)
+r_atm = 0.0820574614 # Gas constant (L*atm/mol/K)
+r_mmhg = 62.3636711 # Gas constant (L*mmHg/mol/K)
+r_joule = 8.314462175 # Gas constant (J/mol/K)
 kw = 1.01e-14 # Equilibrium constant for auto-ionization of water
-avo = 6.022e23 # Avogadro constant (mol^-1)
+avo = 6.022e23 # Avogadro constant (/mol)
 # Mechanics
-g = 9.807 # Acceleration due to gravity (m*s^-1)
-G = 6.673e-11 # Gravitational constant (N*m^2*kg*-2)
+g = 9.807 # Acceleration due to gravity (m/s)
+G = 6.673e-11 # Gravitational constant (N*m^2/kg**2)
 # Electromagnetism
 ele = 1.602e-19 # Elementary charge (C)
-e0 = 8.854e-12 # Permittivity of a vacuum (F*m^-1)
 mu0 = math.pi / 2.5e+6 # Permiability of a vacuum (N/A^2)
-ke = 8.988e9 # Coulomb constant (N*m^2*C^-2)
-c = 2.998e8 # Speed of light in a vacuum (m*s^-1)
+e0 = 8.854e-12 # Permittivity of a vacuum (F/m)
+ke = 8.988e9 # Coulomb constant (N*m**2/C**2)
+c = 2.998e8 # Speed of light in a vacuum (m/s)
 # Quantum Physics
 h = 6.626e-34 # Planck constant (J*s)
 hbar = 1.054e-34 # h-bar constant (J*s)
@@ -97,36 +99,36 @@ ev = 1.602e-19 # Electron-volt (J)
 f_zero = -459.67
 c_zero = -273.15
 k_zero = 0
-def valid_temp(temp,zero):
+def valid_temp(temp, zero):
     if temp < zero:
         print("Impossibru!")
         return float('NaN')
-    return round(temp,8)
+    return round(temp, 8)
 def fc_temp(f):
     c = (f-32) * (5/9)
-    return valid_temp(c,c_zero)
+    return valid_temp(c, c_zero)
 def cf_temp(c):
     f = c * (9/5) + 32
-    return valid_temp(f,f_zero)
+    return valid_temp(f, f_zero)
 def ck_temp(c):
     k = c + 273.15
-    return valid_temp(k,k_zero)
+    return valid_temp(k, k_zero)
 def kc_temp(k):
     c = k - 273.15
-    return valid_temp(c,c_zero)
+    return valid_temp(c, c_zero)
 def fk_temp(f):
     k = (f+459.67) * (5/9)
-    return valid_temp(k,k_zero)
+    return valid_temp(k, k_zero)
 def kf_temp(k):
     f = k * (9/5) - 459.67
-    return valid_temp(f,f_zero)
+    return valid_temp(f, f_zero)
 
 
 ### Fractions ###
 def getfrac(x):
     return Fraction(x).limit_denominator()
 def frac(x):
-    print( getfrac(x) )
+    print(getfrac(x))
 def mix(x):
     fraction = getfrac(x)
     numerator = fraction.numerator
@@ -143,7 +145,6 @@ def ln(x): return math.log(x)
 def log(x): return math.log10(x)
 def logbase(x, y): return math.log(x, y)
 def exp(x): return math.exp(x)
-def pow(x, y): return math.pow(x, y)
 def sqrt(x): return math.sqrt(x)
 def nrt(x, y): return math.pow(x, 1/y)
 def rec(x): return 1/x
@@ -153,7 +154,7 @@ def gamma(x): return math.gamma(x)
 def hypot(x): return math.hypot(x)
 def floor(x): return math.floor(x)
 def ceil(x): return math.ceil(x)
-def sum(*x): return math.fsum(x)
+def lsum(*x): return math.fsum(x)
 # Trigonometry (degrees functions begin with 'd')
 def rad(x): return math.radians(x)
 def deg(x): return math.degrees(x)
@@ -189,27 +190,35 @@ def atanh(x): return math.atanh(x)
 def datanh(x): return deg(atanh(x))
 # Convert SI prefixes to base unit
 def exp10(x, n): return x * 10**n
-def Y(x): return exp10(x, 24)
-def Z(x): return exp10(x, 21)
-def E(x): return exp10(x, 18)
-def P(x): return exp10(x, 15)
-def T(x): return exp10(x, 12)
-def G(x): return exp10(x, 9)
-def M(x): return exp10(x, 6)
-def k(x): return exp10(x, 3)
+def yotta(x): return exp10(x, 24)
+def zetta(x): return exp10(x, 21)
+def exa(x): return exp10(x, 18)
+def peta(x): return exp10(x, 15)
+def tera(x): return exp10(x, 12)
+def giga(x): return exp10(x, 9)
+def mega(x): return exp10(x, 6)
+def kilo(x): return exp10(x, 3)
 def centi(x): return exp10(x, -2)
-def m(x): return exp10(x, -3)
-def mu(x): return exp10(x, -6)
-def n(x): return exp10(x, -9)
+def milli(x): return exp10(x, -3)
+def micro(x): return exp10(x, -6)
+def nano(x): return exp10(x, -9)
 def angstrom(x): return exp10(x, -10)
-def p(x): return exp10(x, -12)
-def f(x): return exp10(x, -15)
-def a(x): return exp10(x, -18)
-def z(x): return exp10(x, -21)
-def y(x): return exp10(x, -24)
+def pico(x): return exp10(x, -12)
+def femto(x): return exp10(x, -15)
+def atto(x): return exp10(x, -18)
+def zepto(x): return exp10(x, -21)
+def yocto(x): return exp10(x, -24)
 
 
 ### Specialty Math ###
+# Generate diceware values
+def diceware(n):
+    for i in range(0, n):
+        print(str(i + 1) + ": ", end="")
+        for i in range(0, 5):
+            print(randint(1, 6), end="")
+        print()
+
 # Cross-multiply two vectors
 def cross3(ax, ay, az, bx, by, bz):
     return [ay * bz - az * by, az * bx - ax * bz, ax * by - ay * bx]
@@ -242,7 +251,7 @@ def pythleg(c, a):
 
 ### Cellular Data Statistics ###
 def days_in_month(month):
-    shortmonths = [4,6,9,11]
+    shortmonths = [4, 6, 9, 11]
     if month in shortmonths:
         return 30
     elif month == 2: # Don't bother with leap year
@@ -250,8 +259,7 @@ def days_in_month(month):
     else: # For simplicity, assume 31 if input is invalid.
         return 31
 
-def data(gb,total):
-    
+def data(gb, total):
     reset_day = 13 # Day of month on which billing month rolls over
     
     now = datetime.now()
