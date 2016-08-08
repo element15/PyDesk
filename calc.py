@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "16-808c"
+script_version = "16-808d"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -260,7 +260,7 @@ def days_in_month(month):
         return 31
 
 def data(gb, total):
-    reset_day = 13 # Day of month on which billing month rolls over
+    reset_day = 11 # Day of month on which billing month rolls over
     
     now = datetime.now()
     if now.day >= reset_day:
