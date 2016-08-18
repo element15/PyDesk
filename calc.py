@@ -210,7 +210,6 @@ def zepto(x): return exp10(x, -21)
 def yocto(x): return exp10(x, -24)
 
 
-### Specialty Math ###
 # Generate diceware values
 def diceware(n):
     for i in range(0, n):
@@ -220,7 +219,7 @@ def diceware(n):
         print()
 
 ## Vectors ##
-# Cross-multiply two vectors
+# Note that all of these functions are intended for 3-dimensional vectors
 def vcross(a, b):
     return [a[1] * b[2] - a[2] * b[1], \
             a[2] * b[0] - a[0] * b[2], \
@@ -229,15 +228,10 @@ def vadd(a, b):
     return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]
 def vneg(a):
     return [-a[0], -a[1], -a[2]]
+def vsub(a, b):
+    return vadd(a, vneg(b))
 def vdot(a, b):
     return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
-
-
-# Economics
-def elastic(q1, q2, p1, p2):
-    q = dist(q1, q2) / mid(q2, q1)
-    p = dist(p1, p2) / mid(p2, p1)
-    return q/p
 
 # Compute approximate golden ratios using fibonacci
 def gold(n):
