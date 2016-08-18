@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "16-808d"
+script_version = "16-818a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -219,9 +219,19 @@ def diceware(n):
             print(randint(1, 6), end="")
         print()
 
+## Vectors ##
 # Cross-multiply two vectors
-def cross3(ax, ay, az, bx, by, bz):
-    return [ay * bz - az * by, az * bx - ax * bz, ax * by - ay * bx]
+def vcross(a, b):
+    return [a[1] * b[2] - a[2] * b[1], \
+            a[2] * b[0] - a[0] * b[2], \
+            a[0] * b[1] - a[1] * b[0]]
+def vadd(a, b):
+    return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]
+def vneg(a):
+    return [-a[0], -a[1], -a[2]]
+def vdot(a, b):
+    return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
+
 
 # Economics
 def elastic(q1, q2, p1, p2):
