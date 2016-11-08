@@ -240,6 +240,8 @@ def vproj(a, b): # Projection of a onto b
     return vscale(vdot(a, b) / vdot(b, b), b)
 def vunit(a): # makes a unit vector
     return vscale(1 / vlen(a), a)
+def vtheta(a, b): # find the angle between two vectosr in radians
+    return acos(vdot(a, b) / (vlen(a) * vlen(b)))
 
 # Compute approximate golden ratios using fibonacci
 def gold(n):
