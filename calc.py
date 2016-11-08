@@ -78,7 +78,8 @@ r_joule = 8.314462175 # Gas constant (J/mol/K)
 kw = 1.01e-14 # Equilibrium constant for auto-ionization of water
 avo = 6.022e23 # Avogadro constant (/mol)
 # Mechanics
-g = 9.807 # Acceleration due to gravity (m/s)
+g = 9.80665 # Acceleration due to gravity (m/s)
+g_ft = 32.174049 # Acceleration due to gravity (ft/s)
 G = 6.673e-11 # Gravitational constant (N*m^2/kg**2)
 # Electromagnetism
 ele = 1.602e-19 # Elementary charge (C)
