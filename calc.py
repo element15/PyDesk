@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "16-818a"
+script_version = "16-b17a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -64,6 +64,10 @@ def dist(a, b):
     return b-a
 def dist2(x1, y1, x2, y2):
     return (dist(x1, x2)**2 + dist(y1, y2)**2)**0.5
+
+# Arithmetic mean of a list
+def mean(*x):
+    return math.fsum(x) / len(x)
 
 
 
