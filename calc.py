@@ -313,11 +313,11 @@ def data(gb, total):
         print("        Catch up: %d" % daysBehind)
 
 
-print("Loaded calc.py")
-
 ### Exit functions ###
 def exit():
     import sys
     sys.exit()
 def quit(): exit()
 def bye(): exit()
+
+print("Loaded calc.py")
