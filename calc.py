@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "16-b17a"
+script_version = "17-114a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -314,4 +314,10 @@ def data(gb, total):
 
 
 print("Loaded calc.py")
-### End of script ###
+
+### Exit functions ###
+def exit():
+    import sys
+    sys.exit()
+def quit(): exit()
+def bye(): exit()
