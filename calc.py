@@ -102,32 +102,32 @@ ev = 1.602e-19 # Electron-volt (J)
 
 
 ### Temperature Conversions ###
-f_zero = -459.67
-c_zero = -273.15
-k_zero = 0
-def valid_temp(temp, zero):
+abs_zero_f = -459.67
+abs_zero_c = -273.15
+abs_zero_k = 0
+def temp_check_zero(temp, zero):
     if temp < zero:
-        print("Impossibru!")
+        print("Invalid. Result is below absolute zero.")
         return float('NaN')
     return round(temp, 8)
-def fc_temp(f):
+def temp_fc(f):
     c = (f-32) * (5/9)
-    return valid_temp(c, c_zero)
-def cf_temp(c):
+    return temp_check_zero(c, abs_zero_c)
+def temp_cf(c):
     f = c * (9/5) + 32
-    return valid_temp(f, f_zero)
-def ck_temp(c):
+    return temp_check_zero(f, abs_zero_f)
+def temp_ck(c):
     k = c + 273.15
-    return valid_temp(k, k_zero)
-def kc_temp(k):
+    return temp_check_zero(k, abs_zero_k)
+def temp_kc(k):
     c = k - 273.15
-    return valid_temp(c, c_zero)
-def fk_temp(f):
+    return temp_check_zero(c, abs_zero_c)
+def temp_fk(f):
     k = (f+459.67) * (5/9)
-    return valid_temp(k, k_zero)
-def kf_temp(k):
+    return temp_check_zero(k, abs_zero_k)
+def temp_kf(k):
     f = k * (9/5) - 459.67
-    return valid_temp(f, f_zero)
+    return temp_check_zero(f, abs_zero_f)
 
 
 ### Fractions ###
