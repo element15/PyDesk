@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "17-114a"
+script_version = "17-227a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -29,11 +29,12 @@ script_version = "17-114a"
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-import math
 from datetime import datetime
-from fractions import Fraction
 from decimal import Decimal
+from fractions import Fraction
 from random import randint
+import math
+import string
 
 ### General Math ###
 # Evaluate the quadratic formula for ax^2+bx+c=0
