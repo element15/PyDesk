@@ -148,8 +148,10 @@ def mix(x):
 
 ### Convenience Functions ###
 def ln(x): return math.log(x)
-def log(x): return math.log10(x)
+def log(x): return math.log(x)
+def log10(x): return math.log10(x)
 def logbase(x, y): return math.log(x, y)
+def log(x, y): return math.log(x, y)
 def exp(x): return math.exp(x)
 def sqrt(x): return math.sqrt(x)
 def nrt(x, y): return math.pow(x, 1/y)
