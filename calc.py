@@ -263,7 +263,7 @@ def gold(n):
     ratio = thisfib / fib1
     print(str(thisfib) + "/" + str(fib1) + " = " + str(ratio))
 
-# Pythagorean Theorem. Nuff said.
+# Pythagorean theorem
 def pyth(a, b):
     return sqrt(a**2 + b**2)
 def pythleg(c, a):
