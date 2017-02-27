@@ -161,7 +161,6 @@ def gamma(x): return math.gamma(x)
 def hypot(x): return math.hypot(x)
 def floor(x): return math.floor(x)
 def ceil(x): return math.ceil(x)
-def lsum(*x): return math.fsum(x)
 # Trigonometry (degrees functions begin with 'd')
 def rad(x): return math.radians(x)
 def deg(x): return math.degrees(x)
@@ -249,6 +248,19 @@ def vunit(a): # makes a unit vector
     return vscale(1 / vlen(a), a)
 def vtheta(a, b): # find the angle between two vectosr in radians
     return acos(vdot(a, b) / (vlen(a) * vlen(b)))
+
+## Lists ##
+def sum(*x):
+    n = []
+    if len(x) == 0:
+        return 0
+    for i in x:
+        if isinstance(i, list):
+            for j in i:
+                n.append(float(j))
+        else:
+            n.append(float(i))
+    return math.fsum(n)
 
 # Compute approximate golden ratios using fibonacci
 def gold(n):
