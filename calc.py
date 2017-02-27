@@ -85,12 +85,12 @@ avo = 6.022e23 # Avogadro constant (/mol)
 # Mechanics
 g = 9.80665 # Acceleration due to gravity (m/s)
 g_ft = 32.174049 # Acceleration due to gravity (ft/s)
-G = 6.673e-11 # Gravitational constant (N*m^2/kg**2)
+G = 6.673e-11 # Gravitational constant (N*m^2/kg^2)
 # Electromagnetism
 ele = 1.602e-19 # Elementary charge (C)
 mu0 = math.pi / 2.5e+6 # Permiability of a vacuum (N/A^2)
 e0 = 8.854e-12 # Permittivity of a vacuum (F/m)
-ke = 8.988e9 # Coulomb constant (N*m**2/C**2)
+ke = 8.988e9 # Coulomb constant (N*m^2/C^2)
 c = 2.998e8 # Speed of light in a vacuum (m/s)
 # Quantum Physics
 h = 6.626e-34 # Planck constant (J*s)
