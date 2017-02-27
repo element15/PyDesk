@@ -269,6 +269,25 @@ def pyth(a, b):
 def pythleg(c, a):
     return sqrt(c**2 - a**2)
 
+# Convert an int n to an arbitrary base b (as string)
+def to_base(n, b):
+    num_dict = string.digits + string.ascii_lowercase
+    if n < 0:
+        sign = -1
+    elif n == 0:
+        return num_dict[0]
+    else:
+        sign = 1
+    n *= sign
+    digits = []
+    while n:
+        digits.append(num_dict[n % b])
+        n //= b # Double-slash forces integer division
+    if sign < 0:
+        digits.append('-')
+    digits.reverse()
+    return ''.join(digits)
+
 ### Cellular Data Statistics ###
 def days_in_month(month):
     shortmonths = [4, 6, 9, 11]
