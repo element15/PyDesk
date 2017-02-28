@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "17-227a"
+script_version = "17-228a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -28,7 +28,7 @@ script_version = "17-227a"
 # ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
+from collections import abc
 from datetime import datetime
 from decimal import Decimal
 from fractions import Fraction
@@ -250,17 +250,33 @@ def vtheta(a, b): # find the angle between two vectosr in radians
     return acos(vdot(a, b) / (vlen(a) * vlen(b)))
 
 ## Lists ##
+def flatten_list(*x):
+    n = x
+    m = []
+    is_flat = False
+    while not is_flat:
+        is_flat = True
+        for i in n:
+            if isinstance(i, abc.Iterable):
+                # for every list, add its elements to n, even if those elements
+                # are themselves lists. The while loop will repeat until the
+                # heirarchy is flat.
+                is_flat = False
+                for j in i:
+                    m.append(j)
+            else:
+                m.append(i)
+        n = m
+        m = []
+    return n
+def to_float_list(*x):
+    n = flatten_list(x)
+    m = []
+    for i in n:
+        m.append(float(i))
+    return m
 def sum(*x):
-    n = []
-    if len(x) == 0:
-        return 0
-    for i in x:
-        if isinstance(i, list):
-            for j in i:
-                n.append(float(j))
-        else:
-            n.append(float(i))
-    return math.fsum(n)
+    return math.fsum(to_float_list(x))
 
 # Compute approximate golden ratios using fibonacci
 def gold(n):
