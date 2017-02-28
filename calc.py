@@ -243,9 +243,9 @@ def vscale(a, alpha):
 def vlen(a):
     return sqrt(a[0]**2 + a[1]**2 + a[2]**2)
 def vproj(a, b): # Projection of a onto b
-    return vscale(vdot(a, b) / vdot(b, b), b)
+    return vscale(b, vdot(a, b) / vdot(b, b))
 def vunit(a): # makes a unit vector
-    return vscale(1 / vlen(a), a)
+    return vscale(a, 1 / vlen(a))
 def vtheta(a, b): # find the angle between two vectosr in radians
     return acos(vdot(a, b) / (vlen(a) * vlen(b)))
 
