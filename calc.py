@@ -226,23 +226,23 @@ def diceware(n):
 
 ## Vectors ##
 # Note that all of these functions are intended for 3-dimensional vectors
-def vcross(a, b):
+def vcross(a, b): # cross (vector) product of vector a and vector b
     return [a[1] * b[2] - a[2] * b[1], \
             a[2] * b[0] - a[0] * b[2], \
             a[0] * b[1] - a[1] * b[0]]
-def vadd(a, b):
+def vadd(a, b): # add vector a to vector b
     return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]
-def vneg(a):
+def vneg(a): # negate vector a
     return [-a[0], -a[1], -a[2]]
-def vsub(a, b):
+def vsub(a, b): # subtract vector b from vector a
     return vadd(a, vneg(b))
-def vdot(a, b):
+def vdot(a, b): # dot (scalar) product of vector a and vector b
     return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
-def vscale(a, alpha):
+def vscale(a, alpha): # scale vector a by scalar alpha
     return [a[0] * alpha, a[1] * alpha, a[2] * alpha]
-def vlen(a):
+def vlen(a): # get absolute value
     return sqrt(a[0]**2 + a[1]**2 + a[2]**2)
-def vproj(a, b): # Projection of a onto b
+def vproj(a, b): # projection of a onto b
     return vscale(b, vdot(a, b) / vdot(b, b))
 def vunit(a): # makes a unit vector
     return vscale(a, 1 / vlen(a))
