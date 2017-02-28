@@ -66,11 +66,6 @@ def dist(a, b):
 def dist2(x1, y1, x2, y2):
     return (dist(x1, x2)**2 + dist(y1, y2)**2)**0.5
 
-# Arithmetic mean of a list
-def mean(*x):
-    return math.fsum(x) / len(x)
-
-
 
 ### Constants ###
 # General
