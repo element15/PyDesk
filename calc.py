@@ -238,7 +238,7 @@ def vsub(a, b):
     return vadd(a, vneg(b))
 def vdot(a, b):
     return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
-def vscale(alpha, a):
+def vscale(a, alpha):
     return [a[0] * alpha, a[1] * alpha, a[2] * alpha]
 def vlen(a):
     return sqrt(a[0]**2 + a[1]**2 + a[2]**2)
