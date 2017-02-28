@@ -302,9 +302,9 @@ def to_int_list(*x):
     for i in n:
         m.append(int(i))
     return m
-def fsum(*x):
+def fsum(*x): # Floating-point sum of a list
     return math.fsum(to_float_list(x))
-def isum(*x):
+def isum(*x): # Integer sum of a list
     n = to_int_list(x)
     sum = 0
     for i in n:
