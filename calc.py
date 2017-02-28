@@ -310,6 +310,18 @@ def isum(*x):
     for i in n:
         sum += i
     return int(sum)
+def mean(*x): # Arithmetic mean
+    n = flatten_list(x)
+    return fsum(n) / len(n)
+def stdDev(*x): # Population Standard Deviation
+    n = to_float_list(x)
+    avg = mean(n)
+    total_deviation = 0
+    for i in n:
+        total_deviation += (i - avg) ** 2
+    return sqrt(1 / len(n) * total_deviation)
+def pctRSD(*x): # %RSD
+    return stdDev(x) / mean(x) * 100
 
 # Compute approximate golden ratios using fibonacci
 def gold(n):
