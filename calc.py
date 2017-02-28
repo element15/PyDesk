@@ -275,8 +275,20 @@ def to_float_list(*x):
     for i in n:
         m.append(float(i))
     return m
+def to_int_list(*x):
+    n = flatten_list(x)
+    m = []
+    for i in n:
+        m.append(int(i))
+    return m
 def fsum(*x):
     return math.fsum(to_float_list(x))
+def isum(*x):
+    n = to_int_list(x)
+    sum = 0
+    for i in n:
+        sum += i
+    return int(sum)
 
 # Compute approximate golden ratios using fibonacci
 def gold(n):
