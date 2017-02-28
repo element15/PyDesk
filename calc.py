@@ -321,7 +321,10 @@ def stdDev(*x): # Population Standard Deviation
         total_deviation += (i - avg) ** 2
     return sqrt(1 / len(n) * total_deviation)
 def pctRSD(*x): # %RSD
-    return stdDev(x) / mean(x) * 100
+    try:
+        return stdDev(x) / mean(x) * 100
+    except ZeroDivisionError:
+        return float('NaN')
 
 # Compute approximate golden ratios using fibonacci
 def gold(n):
