@@ -246,8 +246,10 @@ def vproj(a, b): # Projection of a onto b
     return vscale(b, vdot(a, b) / vdot(b, b))
 def vunit(a): # makes a unit vector
     return vscale(a, 1 / vlen(a))
-def vtheta(a, b): # find the angle between two vectosr in radians
+def vtheta(a, b): # find the angle between two vectors in radians
     return acos(vdot(a, b) / (vlen(a) * vlen(b)))
+def dvtheta(a, b): # find the angle between two vectors in degrees
+    return deg(vtheta(a, b))
 
 ## Lists ##
 def flatten_list(*x):
