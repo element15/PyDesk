@@ -275,7 +275,7 @@ def to_float_list(*x):
     for i in n:
         m.append(float(i))
     return m
-def sum(*x):
+def fsum(*x):
     return math.fsum(to_float_list(x))
 
 # Compute approximate golden ratios using fibonacci
