@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "17-228a"
+script_version = "17-301a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -336,20 +336,6 @@ def pctRSD(*x): # %RSD
         return stdDev(x) / mean(x) * 100
     except ZeroDivisionError:
         return float('NaN')
-
-# Compute approximate golden ratios using fibonacci
-def gold(n):
-    i = 0
-    fib2 = 1
-    fib1 = 1
-    thisfib = 1
-    while i < n:
-        i += 1
-        fib2 = fib1
-        fib1 = thisfib
-        thisfib = fib1 + fib2
-    ratio = thisfib / fib1
-    print(str(thisfib) + "/" + str(fib1) + " = " + str(ratio))
 
 # Pythagorean theorem
 def pyth(a, b):
