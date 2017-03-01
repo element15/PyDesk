@@ -45,14 +45,31 @@ def quad(a, b, c):
             (-b-sqrt(quad_det(a, b, c)))/(2*a)]
 
 # Convert x to scientific notation
-sigfig = 4
+sigfig = 6 # if this value is < 1, it is assumed to be 1
 def sci(x):
+    global sigfig
+    if sigfig < 1:
+        sigfig = 1
     string = "{:." + str(sigfig - 1) + "e}"
     return string.format(x)
-
 # Convert x to engineering notation
 def eng(x):
-    return Decimal(str(x)).normalize().to_eng_string()
+    sci_string = sci(x)
+    components = sci_string.split('e')
+    exponent = int(components[1])
+    offset = exponent % 3
+    head = components[0].replace('.', '')
+    is_negative = False
+    if head[0] == '-':
+        is_negative = True
+        head = head[1:]
+    head = head[:(offset + 1)] + ('.' if sigfig > 1 else '') + \
+            head[(offset + 1):]
+    new_exponent = exponent - offset
+    out = ('-' if is_negative else '') + head + 'e' + \
+            ('+' if new_exponent >= 0 else '-') + \
+            ('0' if abs(new_exponent) < 10 else '') + str(abs(new_exponent))
+    return out
 
 # Get the midpoint
 def mid(a, b):
@@ -151,7 +168,7 @@ def exp10(x, n): return x * 10**n
 def sqrt(x): return math.sqrt(x)
 def nrt(x, y): return math.pow(x, 1/y)
 def rec(x): return 1/x
-def abs(x): return math.fabs(x)
+# def abs(x): return math.fabs(x)
 def fact(x): return math.factorial(x)
 def gamma(x): return math.gamma(x)
 def hypot(x): return math.hypot(x)
