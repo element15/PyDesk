@@ -422,15 +422,26 @@ def pctRSD(*x):
 ### Cellular Data Statistics ###
 ################################
 
-# Given an integer from 1 to 12 (inclusive) representing a month, return the
-# number of days in that month, excluding leap years.
+# Given an integer from 1 to 12 (inclusive) representing a month, or the name
+# of a month return the number of days in that month, ignoring leap years. If
+# an invalid input is received, the function will not throw an exception, but
+# will silently return 31.
 def days_in_month(month):
+    month_names = { 'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5, 'jun': 6,
+            'jul': 7, 'aug': 8, 'sep': 9, 'oct': 10, 'nov': 11, 'dec': 12}
     shortmonths = [4, 6, 9, 11]
-    if month in shortmonths:
+    try:
+        month_number = int(month)
+    except ValueError:
+        try:
+            month_number = month_names[str(month).lower()[:3]]
+        except KeyError: # Will default to 31 days
+            month_number = 0
+    if month_number in shortmonths:
         return 30
-    elif month == 2: # Don't bother with leap year
+    elif month_number == 2: # Februrary
         return 28
-    else: # For simplicity, assume 31 if input is invalid.
+    else: # For simplicity, assume 31 days if input is invalid.
         return 31
 
 # Day of the month on which the relevant billing cycle rolls over
