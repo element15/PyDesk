@@ -48,7 +48,7 @@ r_atm = 0.0820574614 # Gas constant (L*atm/mol/K)
 r_mmhg = 62.3636711 # Gas constant (L*mmHg/mol/K)
 r_joule = 8.314462175 # Gas constant (J/mol/K)
 kw = 1.01e-14 # Equilibrium constant for auto-ionization of water
-avo = 6.022e23 # Avogadro constant (/mol)
+avo = 6.022e23 # Avogadro constant (mol^-1)
 
 # Mechanics
 g = 9.80665 # Acceleration due to gravity (m/s)
@@ -68,7 +68,7 @@ hbar = 1.054e-34 # h-bar constant (J*s)
 me = 9.109e-31 # Electron mass (kg)
 mp = 1.673e-27 # Proton mass (kg)
 mn = 1.675e-27 # Neutron mass (kg)
-ev = 1.602e-19 # Electron-volt (J)
+eV = 1.602e-19 # Electron-volt (J)
 
 #############################
 ### Convenience Functions ###
