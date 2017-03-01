@@ -316,7 +316,19 @@ def mix(x):
 ### Vectors ###
 ###############
 
-# Note that all of these functions are intended for 3-dimensional vectors
+# Convert an n-dimensional vector to a 3-dimensional one
+def vector_to_3d(a):
+    n = len(a)
+    if n > 3:
+        return a[:3]
+    if n == 1:
+        return [a[0], 0, 0]
+    if n == 2:
+        return [a[0], a[1], 0]
+    if n == 3:
+        return a
+    return [0, 0, 0] # This should only happen if n == 0
+
 def vcross(a, b): # cross (vector) product of vector a and vector b
     return [a[1] * b[2] - a[2] * b[1], \
             a[2] * b[0] - a[0] * b[2], \
