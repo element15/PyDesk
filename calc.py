@@ -192,7 +192,7 @@ def pythleg(c, a):
     return sqrt(c**2 - a**2)
 
 # Generate diceware values
-def diceware(n):
+def diceware(n = 5):
     for i in range(0, n):
         print(str(i + 1) + ": ", end="")
         for i in range(0, 5):
