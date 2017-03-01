@@ -328,19 +328,19 @@ def vector_to_3d(a):
     return (0, 0, 0) # This should only happen if n == 0
 
 def vcross(a, b): # cross (vector) product of vector a and vector b
-    return [a[1] * b[2] - a[2] * b[1], \
+    return (a[1] * b[2] - a[2] * b[1], \
             a[2] * b[0] - a[0] * b[2], \
-            a[0] * b[1] - a[1] * b[0]]
+            a[0] * b[1] - a[1] * b[0])
 def vadd(a, b): # add vector a to vector b
-    return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]
+    return (a[0] + b[0], a[1] + b[1], a[2] + b[2])
 def vneg(a): # negate vector a
-    return [-a[0], -a[1], -a[2]]
+    return (-a[0], -a[1], -a[2])
 def vsub(a, b): # subtract vector b from vector a
     return vadd(a, vneg(b))
 def vdot(a, b): # dot (scalar) product of vector a and vector b
     return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
 def vscale(a, alpha): # scale vector a by scalar alpha
-    return [a[0] * alpha, a[1] * alpha, a[2] * alpha]
+    return (a[0] * alpha, a[1] * alpha, a[2] * alpha)
 def vlen(a): # get absolute value
     return sqrt(a[0]**2 + a[1]**2 + a[2]**2)
 def vproj(a, b): # projection of a onto b
