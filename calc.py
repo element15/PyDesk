@@ -4,8 +4,7 @@ script_version = "17-301a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
-# functionality. Written for use with Python 3, but *should* work fine with
-# Python 2.
+# functionality.
 #
 #
 # This is free and unencumbered software released into the public domain.
@@ -204,8 +203,12 @@ def diceware(n):
 ### Number Formatting ###
 #########################
 
+# Number of significant figures to use when converting to scientific or
+# engineering notation. If this value is < 1, it will be changed to 1 whenever
+# sci() or eng() is called.
+sigfig = 6
+
 # Convert x to scientific notation
-sigfig = 6 # if this value is < 1, it is assumed to be 1
 def sci(x):
     global sigfig
     if sigfig < 1:
@@ -289,10 +292,15 @@ def temp_kf(k):
 ### Fractions ###
 #################
 
+# Creates a Fraction object
 def getfrac(x):
     return Fraction(x).limit_denominator()
+
+# Prints a string representation of x as a fraction
 def frac(x):
     print(getfrac(x))
+
+# Prints a mixed number representation of x
 def mix(x):
     fraction = getfrac(x)
     numerator = fraction.numerator
@@ -338,6 +346,10 @@ def dvtheta(a, b): # find the angle between two vectors in degrees
 ### Lists ###
 #############
 
+# Given a list containing some combination of (possibly deeply nested) Iterables
+# and non-iterables, produce a single list of non-iterables. No guarentees are
+# made regarding the order of the output values with respect to the input
+# structure.
 def flatten_list(*x):
     n = x
     m = []
@@ -346,9 +358,6 @@ def flatten_list(*x):
         is_flat = True
         for i in n:
             if isinstance(i, abc.Iterable):
-                # for every list, add its elements to n, even if those elements
-                # are themselves lists. The while loop will repeat until the
-                # heirarchy is flat.
                 is_flat = False
                 for j in i:
                     m.append(j)
@@ -357,37 +366,53 @@ def flatten_list(*x):
         n = m
         m = []
     return n
+
+# Given a (possibly deeply nested) list of numbers, produce a flattened list of
+# floating-point numbers. No guarentees are made regarding the order of the
+# output values with respect to the input structure.
 def to_float_list(*x):
     n = flatten_list(x)
     m = []
     for i in n:
         m.append(float(i))
     return m
+
+# Similar to to_float_list(), but casts all numbers to int().
 def to_int_list(*x):
     n = flatten_list(x)
     m = []
     for i in n:
         m.append(int(i))
     return m
-def fsum(*x): # Floating-point sum of a list
+
+# Floating-point sum of a list
+def fsum(*x):
     return math.fsum(to_float_list(x))
-def isum(*x): # Integer sum of a list
+
+# Integer sum of a list
+def isum(*x):
     n = to_int_list(x)
     sum = 0
     for i in n:
         sum += i
     return int(sum)
-def mean(*x): # Arithmetic mean
+
+# Arithmetic mean of a list
+def mean(*x):
     n = flatten_list(x)
     return fsum(n) / len(n)
-def stdDev(*x): # Population Standard Deviation
+
+# Population Standard Deviation of a list
+def stdDev(*x):
     n = to_float_list(x)
     avg = mean(n)
     total_deviation = 0
     for i in n:
         total_deviation += (i - avg) ** 2
     return sqrt(1 / len(n) * total_deviation)
-def pctRSD(*x): # %RSD
+
+# %RSD of a list
+def pctRSD(*x):
     try:
         return stdDev(x) / mean(x) * 100
     except ZeroDivisionError:
@@ -397,6 +422,8 @@ def pctRSD(*x): # %RSD
 ### Cellular Data Statistics ###
 ################################
 
+# Given an integer from 1 to 12 (inclusive) representing a month, return the
+# number of days in that month, excluding leap years.
 def days_in_month(month):
     shortmonths = [4, 6, 9, 11]
     if month in shortmonths:
@@ -406,9 +433,14 @@ def days_in_month(month):
     else: # For simplicity, assume 31 if input is invalid.
         return 31
 
+# Day of the month on which the relevant billing cycle rolls over
+reset_day = 11
+
+# Given the current amount of data used (in Gigabytes), and the total data
+# allowance for each month (also in Gigabytes), calculate statistics for how
+# much data should be used to yield a uniform usage pattern throughout the
+# month.
 def data(gb, total):
-    reset_day = 11 # Day of month on which billing month rolls over
-    
     now = datetime.now()
     if now.day >= reset_day:
         totalDays = days_in_month(now.month)
@@ -444,6 +476,9 @@ def data(gb, total):
 ### Exit functions ###
 ######################
 
+# Each of the following functions may be used to cleanly exit the Python
+# interpreter. These can be useful in terminal emulators which do not exit upon
+# reciept of a ^D signal.
 def exit():
     import sys
     sys.exit()
