@@ -168,7 +168,6 @@ def exp10(x, n): return x * 10**n
 def sqrt(x): return math.sqrt(x)
 def nrt(x, y): return math.pow(x, 1/y)
 def rec(x): return 1/x
-# def abs(x): return math.fabs(x)
 def fact(x): return math.factorial(x)
 def gamma(x): return math.gamma(x)
 def hypot(x): return math.hypot(x)
