@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "17-301a"
+script_version = "17-301b"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
