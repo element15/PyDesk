@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "17-301b"
+script_version = "17-531a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -519,4 +519,4 @@ def exit():
 def quit(): exit()
 def bye(): exit()
 
-print("Loaded calc.py")
+print("Loaded PyDesk Version " + script_version)
