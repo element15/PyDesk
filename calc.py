@@ -57,17 +57,17 @@ G = 6.673e-11 # Gravitational constant (N*m^2/kg^2)
 
 # Electromagnetism
 ele = 1.602e-19 # Elementary charge (C)
-mu0 = math.pi / 2.5e+6 # Permiability of a vacuum (N/A^2)
-e0 = 8.854e-12 # Permittivity of a vacuum (F/m)
-ke = 8.988e9 # Coulomb constant (N*m^2/C^2)
+mu_0 = math.pi / 2.5e+6 # Permiability of a vacuum (N/A^2)
+epsilon_0 = 8.854e-12 # Permittivity of a vacuum (F/m)
+k_e = 8.988e9 # Coulomb constant (N*m^2/C^2)
 c = 2.998e8 # Speed of light in a vacuum (m/s)
 
 # Quantum Physics
 h = 6.626e-34 # Planck constant (J*s)
 hbar = 1.054e-34 # h-bar constant (J*s)
-me = 9.109e-31 # Electron mass (kg)
-mp = 1.673e-27 # Proton mass (kg)
-mn = 1.675e-27 # Neutron mass (kg)
+m_e = 9.109e-31 # Electron mass (kg)
+m_p = 1.673e-27 # Proton mass (kg)
+m_n = 1.675e-27 # Neutron mass (kg)
 eV = 1.602e-19 # Electron-volt (J)
 
 #############################
