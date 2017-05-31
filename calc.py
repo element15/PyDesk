@@ -185,6 +185,10 @@ def dist(a, b):
 def dist2(x1, y1, x2, y2):
     return (dist(x1, x2)**2 + dist(y1, y2)**2)**0.5
 
+# Linear interpolation
+def lint(x1, xn, x2, y1, y2):
+    return (y2 - y1) / (x2 - x1) * (xn - x1) + y1
+
 # Pythagorean theorem
 def pyth(a, b):
     return sqrt(a**2 + b**2)
