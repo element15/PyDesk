@@ -519,4 +519,4 @@ def exit():
 def quit(): exit()
 def bye(): exit()
 
-print("Loaded PyDesk Version " + script_version)
+print("PyDesk, version " + script_version)
