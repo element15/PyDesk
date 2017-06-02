@@ -171,8 +171,8 @@ def from_yocto(x): return exp10(x, -24)
 def quad_det(a, b, c):
     return b**2-4*a*c
 def quad(a, b, c):
-    return [(-b+sqrt(quad_det(a, b, c)))/(2*a),
-            (-b-sqrt(quad_det(a, b, c)))/(2*a)]
+    return ()(-b+sqrt(quad_det(a, b, c)))/(2*a),
+            (-b-sqrt(quad_det(a, b, c)))/(2*a))
 
 # Get the midpoint
 def mid(a, b):
