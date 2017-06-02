@@ -178,7 +178,7 @@ def quad(a, b, c):
 def mid(a, b):
     return (a+b)/2
 def mid2(x1, y1, x2, y2):
-    return [mid(x1, x2), mid(y1, y2)]
+    return (mid(x1, x2), mid(y1, y2))
 # Distance
 def dist(a, b):
     return b-a
