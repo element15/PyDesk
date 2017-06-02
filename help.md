@@ -137,7 +137,6 @@ General math functions not included in Python's standard library
 | diceware(n = 5) | float n | void | Generate a specified number (defaults to 5) of <br /> values for lookup in the Diceware table of words <br /> and print them to stdout |
 
 ## Number Formatting
-Alter the formatting of numbers
 
 | Function | Arguments | Returns | Description |
 | --- | --- | --- | --- |
@@ -146,7 +145,6 @@ Alter the formatting of numbers
 | to_base(n, b) | int n, int b | string | Convert an integer n to arbitrary base b |
 
 ## Temperature Conversions
-Convert among temperature scales
 
 | Function | Arguments | Returns | Description |
 | --- | --- | --- | --- |
