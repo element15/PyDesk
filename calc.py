@@ -205,13 +205,8 @@ def diceware(n = 5):
 ### Number Formatting ###
 #########################
 
-# Number of significant figures to use when converting to scientific or
-# engineering notation. If this value is < 1, it will be changed to 1 whenever
-# sci() or eng() is called.
-sigfig = 6
-
 # Convert x to scientific notation
-def sci(x):
+def sci(x, sigfig = 6):
     global sigfig
     if sigfig < 1:
         sigfig = 1
@@ -219,7 +214,7 @@ def sci(x):
     return string.format(x)
 
 # Convert x to engineering notation
-def eng(x):
+def eng(x, sigfig = 6):
     sci_string = sci(x)
     components = sci_string.split('e')
     exponent = int(components[1])
