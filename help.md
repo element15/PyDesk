@@ -18,7 +18,6 @@ Functions in PyDesk fall into the following categories:
    * Lists
    * Cellular data statistics
    * Exit
-   * Help
 
 ## Constants
 PyDesk includes several mathematical and physical constants which may be helpful for calculations. These constants and their units are outlined below.
