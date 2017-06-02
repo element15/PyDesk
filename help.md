@@ -154,3 +154,11 @@ General math functions not included in Python's standard library
 | temp_kc(k) | float f | float | Convert from Kelvins to degrees Celsius |
 | temp_fk(f) | float f | float | Convert from degrees Fahrenheit to Kelvins |
 | temp_kf(k) | float f | float | Convert from Kelvins to degrees Fahrenheit |
+
+## Fractions
+
+| Function | Arguments | Returns | Description |
+| --- | --- | --- | --- |
+| getfrac(x) | float x | Fraction | Instantiate a new Fraction object |
+| frac(x) | float x | void | Print the value of x as a fraction to stdout |
+| mix(x) | float x | void | Print the values of x as a mixed number to stdout |
