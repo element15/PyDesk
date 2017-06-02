@@ -135,3 +135,12 @@ General math functions not included in Python's standard library
 | lint<br />(x1, xn, x2, y1, y2) | float x1, float xn, <br /> float x2, float y1, <br /> float y2 | float | Use linear interpolation to find a point between <br /> y1 and y2, given point xn between x1 and x2 |
 | pythleg(c, a) | float c, float a | float | Calculate the length of the remaining leg of a <br /> right triangle with leg a and hypotenuse c |
 | diceware(n = 5) | float n | void | Generate a specified number (defaults to 5) of <br /> values for lookup in the Diceware table of words <br /> and print them to stdout |
+
+## Number Formatting
+Alter the formatting of numbers
+
+| Function | Arguments | Returns | Description |
+| --- | --- | --- | --- |
+| sci(x, sigfig = 6) | float x, float sigfig | string | Format a given number in scientific notation. The <br /> value is rounded to 6 significant figures unless <br /> sigfig is specified. |
+| eng(x, sigfig = 6) | float x, float sigfig | string | Format a given number in engineering notation. The <br /> value is rounded to 6 significant figures unless <br /> sigfig is specified. |
+| to_base(n, b) | int n, int b | string | Convert an integer n to arbitrary base b |
