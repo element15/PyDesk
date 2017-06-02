@@ -144,3 +144,15 @@ Alter the formatting of numbers
 | sci(x, sigfig = 6) | float x, float sigfig | string | Format a given number in scientific notation. The <br /> value is rounded to 6 significant figures unless <br /> sigfig is specified. |
 | eng(x, sigfig = 6) | float x, float sigfig | string | Format a given number in engineering notation. The <br /> value is rounded to 6 significant figures unless <br /> sigfig is specified. |
 | to_base(n, b) | int n, int b | string | Convert an integer n to arbitrary base b |
+
+## Temperature Conversions
+Convert among temperature scales
+
+| Function | Arguments | Returns | Description |
+| --- | --- | --- | --- |
+| temp_fc(f) | float f | float | Convert from degrees Fahrenheit to degrees Celsius |
+| temp_cf(c) | float f | float | Convert from degrees Celsius to degrees Fahrenheit |
+| temp_ck(c) | float f | float | Convert from degrees Celsius to Kelvins |
+| temp_kc(k) | float f | float | Convert from Kelvins to degrees Celsius |
+| temp_fk(f) | float f | float | Convert from degrees Fahrenheit to Kelvins |
+| temp_kf(k) | float f | float | Convert from Kelvins to degrees Fahrenheit |
