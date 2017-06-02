@@ -1,5 +1,7 @@
 # PyDesk
 
+PyDesk is a library of functions that can be loaded into a Python interpreter for use as a genera-purpose scientific and engineering calculator.
+
 To invoke PyDesk, run `python3 -i /path/to/calc.py`
 
 ## Command Categories
@@ -118,3 +120,18 @@ These functions convert to a base unit from the specified SI prefix. To convert 
 | from_atto(x) | float x | float | x \* 10<sup>-18</sup> |
 | from_zepto(x) | float x | float | x \* 10<sup>-21</sup> |
 | from_yocto(x) | float x | float | x \* 10<sup>-24</sup> |
+
+## General-purpose
+General math functions not included in Python's standard library
+
+| Function | Arguments | Returns | Description |
+| --- | --- | --- | --- |
+| quad_det(a, b, c) | float a, float b, float c | float | Calculate the quadratic determinant (b<sup>2</sup> - 4ac) of <br /> a parabola in the form ax<sup>2</sup> + bx + c = 0 |
+| quad(a, b, c) | float a, float b, float c | (float,<br />float) | Find the real roots of a parabola in the form <br /> ax<sup>2</sup> + bx + c = 0. Parabolae with complex roots will <br /> throw a domain exception. |
+| mid(a, b) | float a, float b | float | Find the midpoint between two 1-dimensional points |
+| mid2(x1, y1, x2, y2) | float x1, float y1, <br /> float x2, float y2 | (float,<br />float) | Find the midpoint between two 2-dimensional points |
+| dist(a, b) | float a, float b | float | Find the distance from point a to point b |
+| dist2(x1, y1, x2, y2) | float x1, float y1, <br /> float x2, float y2 | (float,<br />flaot) | Find the distance from point (x1, y1) to point (x2, y2) |
+| lint<br />(x1, xn, x2, y1, y2) | float x1, float xn, <br /> float x2, float y1, <br /> float y2 | float | Use linear interpolation to find a point between <br /> y1 and y2, given point xn between x1 and x2 |
+| pythleg(c, a) | float c, float a | float | Calculate the length of the remaining leg of a <br /> right triangle with leg a and hypotenuse c |
+| diceware(n = 5) | float n | void | Generate a specified number (defaults to 5) of <br /> values for lookup in the Diceware table of words <br /> and print them to stdout |
