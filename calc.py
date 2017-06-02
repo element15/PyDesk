@@ -324,31 +324,31 @@ def vector_to_3d(a):
         return (a[0], a[1], a[2])
     return (0, 0, 0) # This should only happen if n == 0
 
-def vcross(a_, b_): # cross (vector) product of vector a and vector b
-    a = vector_to_3d(a_)
-    b = vector_to_3d(b_)
-    return (a[1] * b[2] - a[2] * b[1], \
-            a[2] * b[0] - a[0] * b[2], \
-            a[0] * b[1] - a[1] * b[0])
-def vadd(a_, b_): # add vector a to vector b
-    a = vector_to_3d(a_)
-    b = vector_to_3d(b_)
-    return (a[0] + b[0], a[1] + b[1], a[2] + b[2])
-def vneg(a_): # negate vector a
-    a = vector_to_3d(a_)
-    return (-a[0], -a[1], -a[2])
+def vcross(a, b): # cross (vector) product of vector a and vector b
+    a_ = vector_to_3d(a)
+    b_ = vector_to_3d(b)
+    return (a_[1] * b_[2] - a_[2] * b_[1], \
+            a_[2] * b_[0] - a_[0] * b_[2], \
+            a_[0] * b_[1] - a_[1] * b_[0])
+def vadd(a, b): # add vector a to vector b
+    a_ = vector_to_3d(a)
+    b_ = vector_to_3d(b)
+    return (a_[0] + b_[0], a_[1] + b_[1], a_[2] + b_[2])
+def vneg(a): # negate vector a
+    a_ = vector_to_3d(a)
+    return (-a_[0], -a_[1], -a_[2])
 def vsub(a, b): # subtract vector b from vector a
     return vadd(a, vneg(b))
-def vdot(a_, b_): # dot (scalar) product of vector a and vector b
-    a = vector_to_3d(a_)
-    b = vector_to_3d(b_)
-    return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
-def vscale(a_, alpha): # scale vector a by scalar alpha
-    a = vector_to_3d(a_)
-    return (a[0] * alpha, a[1] * alpha, a[2] * alpha)
-def vlen(a_): # get absolute value
-    a = vector_to_3d(a_)
-    return sqrt(a[0]**2 + a[1]**2 + a[2]**2)
+def vdot(a, b): # dot (scalar) product of vector a and vector b
+    a_ = vector_to_3d(a)
+    b_ = vector_to_3d(b)
+    return a_[0] * b_[0] + a_[1] * b_[1] + a_[2] * b_[2]
+def vscale(a, alpha): # scale vector a by scalar alpha
+    a_ = vector_to_3d(a)
+    return (a_[0] * alpha, a_[1] * alpha, a_[2] * alpha)
+def vlen(a): # get absolute value
+    a_ = vector_to_3d(a)
+    return sqrt(a_[0]**2 + a_[1]**2 + a_[2]**2)
 def vproj(a, b): # projection of a onto b
     return vscale(b, vdot(a, b) / vdot(b, b))
 def vunit(a): # makes a unit vector
