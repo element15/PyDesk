@@ -179,3 +179,17 @@ With the only exception be vscale(), all arguments passed to these functions mus
 | vunit(a) | float[] a | float[3] | Unit vector parallel to a |
 | vtheta(a, b) | float[] a, float[] b | float | Angle between a and b (radians) |
 | dvtheta(a, b) | float[] a, float[] b | float | Angle between a and b (degrees) |
+
+## Lists
+These functions deal with data sets. Values may be passed as lists, tuples, variable argument lists, or any combination thereof.
+
+| Function | Arguments | Returns | Description |
+| --- | --- | --- | --- |
+| flatten_list(*x) | *Object[] x | Object[] | Flatten a nested list of lists into one list of Objects |
+| to_float_list(*x) | *float[] x | float[] | Flatten a nested list of lists into one list of floats |
+| to_int_list(*x) | *float[] x | int[] | Flatten a nested list of lists into one list of ints |
+| fsum(*x) | *float[] x | float | Floating-point sum of list x |
+| isum(*x) | *float[] x | int | Integer sum of list x |
+| mean(*x) | *float[] x | float | Arithmetic mean of x |
+| stdDev(*x) | *float[] x | float | Population standard deviation of x |
+| pctRSD(*x) | *float[] x | float | Population percent relative standard deviation of x |
