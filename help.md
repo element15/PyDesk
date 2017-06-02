@@ -120,7 +120,7 @@ These functions convert to a base unit from the specified SI prefix. To convert 
 | from_zepto(x) | float x | float | x \* 10<sup>-21</sup> |
 | from_yocto(x) | float x | float | x \* 10<sup>-24</sup> |
 
-## General-purpose
+## General-Purpose
 General math functions not included in Python's standard library
 
 | Function | Arguments | Returns | Description |
