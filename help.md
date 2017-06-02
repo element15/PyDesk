@@ -162,3 +162,21 @@ General math functions not included in Python's standard library
 | getfrac(x) | float x | Fraction | Instantiate a new Fraction object |
 | frac(x) | float x | void | Print the value of x as a fraction to stdout |
 | mix(x) | float x | void | Print the values of x as a mixed number to stdout |
+
+## Vectors
+With the only exception be vscale(), all arguments passed to these functions must be vectors. If vectors of less than three dimensions are used, the missing dimensions are assumed to be zero. If vectors of more than three dimensions are used, the extra dimensions are truncated.
+
+| Function | Arguments | Returns | Description |
+| --- | --- | --- | --- |
+| vector_to_3d(a) | float[] a | float[3] | Given a vector of n dimensions, return a 3-dimensional vector |
+| vcross(a, b) | float[] a, float[] b | float[3] | Cross product a x b |
+| vadd(a, b) | float[] a, float[] b | float[3] | Vector sum a + b |
+| vneg(a) | float[] a | float[3] | Negate vector a |
+| vsub(a, b) | float[] a, float[] b | float[3] | Vector difference a - b |
+| vdot(a, b) | float[] a, float[] b | float[3] | Scalar product a (dot) b |
+| vscale(a, alpha) | float[] a, float alpha | float[3] | Scale vector a by scalar alpha |
+| vlen(a) | float[] a | float | Absolute value (length) of vector a |
+| vproj(a, b) | float[] a, float[] b | float[3] | Vector projection of a onto b |
+| vunit(a) | float[] a | float[3] | Unit vector parallel to a |
+| vtheta(a, b) | float[] a, float[] b | float | Angle between a and b (radians) |
+| dvtheta(a, b) | float[] a, float[] b | float | Angle between a and b (degrees) |
