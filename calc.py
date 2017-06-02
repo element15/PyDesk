@@ -85,7 +85,7 @@ def nrt(x, y): return math.pow(x, 1/y)
 def rec(x): return 1/x
 def fact(x): return math.factorial(x)
 def gamma(x): return math.gamma(x)
-def hypot(x): return math.hypot(x)
+def hypot(x, y): return math.hypot(x, y)
 def floor(x): return math.floor(x)
 def ceil(x): return math.ceil(x)
 
