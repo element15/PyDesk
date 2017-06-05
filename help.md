@@ -193,3 +193,18 @@ These functions deal with data sets. Values may be passed as lists, tuples, vari
 | mean(*x) | *float[] x | float | Arithmetic mean of x |
 | stdDev(*x) | *float[] x | float | Population standard deviation of x |
 | pctRSD(*x) | *float[] x | float | Population percent relative standard deviation of x |
+
+## Cellular Data Statistics
+
+| Function | Arguments | Returns | Description |
+| --- | --- | --- | --- |
+| days_in_month(month) | string month | int | Determine the number of days in a given month, <br /> where the month may be given by a number <br /> (1 to 12) or by a month name (i.e. "April"). |
+data<br />(gb, total, reset_day = 11) | float gb, float total, <br /> int reset_day | void | Presents a statistical analysis regarding the <br /> amount of data used in a monthly-renewing data <br /> plan. This can help with rationing data usage as <br /> evenly as possible over the course of the month. <br /> The default reset day is 11 if one is not specified. |
+
+## Exit Functions
+
+| Function | Arguments | Returns | Description |
+| --- | --- | --- | --- |
+| exit() | void | void | Exit the Python interpreter. |
+| quit() | void | void | Exit the Python interpreter. |
+| bye() | void | void | Exit the Python interpreter. |
