@@ -207,7 +207,7 @@ def diceware(n = 5):
 
 # Convert x to scientific notation
 def sci(x, sigfig = 6):
-    global sigfig
+    sigfig
     if sigfig < 1:
         sigfig = 1
     string = "{:." + str(sigfig - 1) + "e}"
