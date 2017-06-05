@@ -460,14 +460,12 @@ def days_in_month(month):
     else: # For simplicity, assume 31 days if input is invalid.
         return 31
 
-# Day of the month on which the relevant billing cycle rolls over
-reset_day = 11
 
 # Given the current amount of data used (in Gigabytes), and the total data
 # allowance for each month (also in Gigabytes), calculate statistics for how
 # much data should be used to yield a uniform usage pattern throughout the
 # month.
-def data(gb, total):
+def data(gb, total, reset_day = 11):
     now = datetime.now()
     if now.day >= reset_day:
         totalDays = days_in_month(now.month)
