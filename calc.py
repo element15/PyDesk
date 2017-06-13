@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3 -i
 
-script_version = "17-602a"
+script_version = "17-613a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -47,6 +47,8 @@ e = math.e
 r_atm = 0.0820574614 # Gas constant (L*atm/mol/K)
 r_mmhg = 62.3636711 # Gas constant (L*mmHg/mol/K)
 r_joule = 8.314462175 # Gas constant (J/mol/K)
+r_btu = 1.98588 # Gas constant (BTU/lbmol/R)
+r_psia = 10.7316 # Gas constant (psia*ft^3/lbmol/R)
 kw = 1.01e-14 # Equilibrium constant for auto-ionization of water
 avo = 6.022e23 # Avogadro constant (mol^-1)
 
@@ -188,6 +190,33 @@ def dist2(x1, y1, x2, y2):
 # Linear interpolation
 def lint(x1, xn, x2, y1, y2):
     return (y2 - y1) / (x2 - x1) * (xn - x1) + y1
+
+# Calculate enthalpy specific heat on a mole basis
+def heat_cp_mol(T, *coeff):
+    coeff = flatten_list(coeff)
+    c_p = 0;
+    for i in range(0, 3):
+        c_p += coeff[i] * T**i
+    return c_p
+
+# Calculate internal energy specific heat on a mole basis
+def heat_cv_mol(R, T, *coeff):
+    return heat_cp_mol(T, coeff) - R
+
+# Calculate enthalpy on a mole basis
+def heat_h_mol(T, *coeff):
+    coeff = flatten_list(coeff)
+    h = 0
+    for i in range(0, 3):
+        h += coeff[i] * T**(i + 1) / (i + 1)
+    return h
+
+# Calculate internal energy on a mole basis
+def heat_u_mol(R, T, *coeff):
+    coeff = flatten_list(coeff)
+    for i in range(0, 3):
+        coeff[i] -= R
+    return heat_h_mol(T, coeff)
 
 # Pythagorean theorem
 def pythleg(c, a):
