@@ -502,7 +502,7 @@ def data(gb, total, reset_day = 11):
     else:
         totalDays = days_in_month(now.month - 1)
         cycleDay = now.day + totalDays - (reset_day - 1)
-    
+
     cycleUsage = gb * 1024
     idealRate = total * 1024 / totalDays
     idealUsage = idealRate * cycleDay
@@ -511,7 +511,7 @@ def data(gb, total, reset_day = 11):
     netRate = idealRate - cycleRate
     coefficient = cycleRate / idealRate
     daysUsed = cycleUsage / idealRate
-    
+
     print("     Cycle Usage: %d MiB" % cycleUsage)
     print("     Ideal Usage: %d MiB" % idealUsage)
     print("       Net Usage: %d MiB" % netUsage)
@@ -521,7 +521,7 @@ def data(gb, total, reset_day = 11):
     print(" Use Coefficient: %f" % coefficient)
     print("       Cycle Day: %d / %d" % (cycleDay, totalDays))
     print("       Ideal Day: %d" % daysUsed)
-    
+
     if netUsage < 0:
         daysBehind = -netUsage / idealRate + 1
         print("        Catch up: %d" % daysBehind)
