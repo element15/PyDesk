@@ -214,9 +214,8 @@ def heat_h_mol(T, *coeff):
 # Calculate internal energy on a mole basis
 def heat_u_mol(R, T, *coeff):
     coeff = flatten_list(coeff)
-    for i in range(0, 3):
-        coeff[i] -= R
-    return heat_h_mol(T, coeff)
+    h =  heat_h_mol(T, coeff)
+    return h - R * T
 
 # Pythagorean theorem
 def pythleg(c, a):
