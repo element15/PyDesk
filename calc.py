@@ -191,6 +191,22 @@ def dist2(x1, y1, x2, y2):
 def lint(x1, xn, x2, y1, y2):
     return (y2 - y1) / (x2 - x1) * (xn - x1) + y1
 
+# Pythagorean theorem
+def pythleg(c, a):
+    return sqrt(c**2 - a**2)
+
+# Generate diceware values
+def diceware(n = 5):
+    for i in range(0, n):
+        print(str(i + 1) + ": ", end="")
+        for i in range(0, 5):
+            print(randint(1, 6), end="")
+        print()
+
+######################
+### Thermodynamics ###
+######################
+
 # Calculate enthalpy specific heat on a mole basis
 def heat_cp_mol(T, *coeff):
     coeff = flatten_list(coeff)
@@ -216,18 +232,6 @@ def heat_u_mol(R, T, *coeff):
     coeff = flatten_list(coeff)
     h =  heat_h_mol(T, coeff)
     return h - R * T
-
-# Pythagorean theorem
-def pythleg(c, a):
-    return sqrt(c**2 - a**2)
-
-# Generate diceware values
-def diceware(n = 5):
-    for i in range(0, n):
-        print(str(i + 1) + ": ", end="")
-        for i in range(0, 5):
-            print(randint(1, 6), end="")
-        print()
 
 #########################
 ### Number Formatting ###
