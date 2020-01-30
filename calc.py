@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3 -i
+#!/usr/bin/env python3 -i
 
 script_version = "17-613a"
 # calc.py
