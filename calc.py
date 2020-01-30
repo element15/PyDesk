@@ -1,6 +1,6 @@
 #!/usr/bin/env python3 -i
 
-script_version = "17-613a"
+script_version = "20-129a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -40,8 +40,7 @@ import string
 #################
 
 # General
-pi = math.pi
-e = math.e
+from math import (pi, e)
 
 # Chemistry and Thermodynamics
 r_atm = 0.0820574614 # Gas constant (L*atm/mol/K)
@@ -76,54 +75,23 @@ eV = 1.602e-19 # Electron-volt (J)
 ### Convenience Functions ###
 #############################
 
-def ln(x): return math.log(x)
-def log(x): return math.log(x)
-def log10(x): return math.log10(x)
-def logbase(x, y): return math.log(x, y)
-def exp(x): return math.exp(x)
-def exp10(x, n): return x * 10**n
-def sqrt(x): return math.sqrt(x)
-def nrt(x, y): return math.pow(x, 1/y)
-def rec(x): return 1/x
-def fact(x): return math.factorial(x)
-def gamma(x): return math.gamma(x)
-def hypot(x, y): return math.hypot(x, y)
-def floor(x): return math.floor(x)
-def ceil(x): return math.ceil(x)
+from math import (
+	log as ln, log10, exp, sqrt, factorial, gamma, hypot, floor, ceil,
+	radians as rad, degrees as deg,
+	sin, cos, tan, asin, acos, atan, sinh, cosh, tanh, asinh, acosh, atanh)
 
-# Trigonometry (degrees functions begin with 'd')
-def rad(x): return math.radians(x)
-def deg(x): return math.degrees(x)
-def sin(x): return math.sin(x)
-def dsin(x): return sin(rad(x))
-def cos(x): return math.cos(x)
-def dcos(x): return cos(rad(x))
-def sec(x): return 1/math.cos(x)
-def dsec(x): return sec(rad(x))
-def csc(x): return 1/math.sin(x)
-def dcsc(x): return csc(rad(x))
-def tan(x): return math.tan(x)
-def dtan(x): return tan(rad(x))
-def cot(x): return 1/math.tan(x)
-def dcot(x): return cot(rad(x))
-def asin(x): return math.asin(x)
-def dasin(x): return deg(asin(x))
-def acos(x): return math.acos(x)
-def dacos(x): return deg(acos(x))
-def atan(x): return math.atan(x)
-def datan(x): return deg(atan(x))
-def sinh(x): return math.sinh(x)
-def dsinh(x): return sinh(rad(x))
-def cosh(x): return math.cosh(x)
-def dcosh(x): return cosh(rad(x))
-def tanh(x): return math.tanh(x)
-def dtanh(x): return tanh(rad(x))
-def asinh(x): return math.asinh(x)
-def dasinh(x): return deg(asinh(x))
-def acosh(x): return math.acosh(x)
-def dacosh(x): return deg(acosh(x))
-def atanh(x): return math.atanh(x)
-def datanh(x): return deg(atanh(x))
+# Trigonometry in degrees
+def sind(x): return sin(rad(x))
+def cosd(x): return cos(rad(x))
+def tand(x): return tan(rad(x))
+def asind(x): return deg(asin(x))
+def acosd(x): return deg(acos(x))
+def atand(x): return deg(atan(x))
+def sinhd(x): return sinh(rad(x))
+def coshd(x): return cosh(rad(x))
+def asinhd(x): return deg(asinh(x))
+def acoshd(x): return deg(acosh(x))
+def atanhd(x): return deg(atanh(x))
 
 # Convert base unit to SI prefix
 def to_yotta(x): return exp10(x, -24)
