@@ -94,6 +94,7 @@ def acoshd(x): return deg(acosh(x))
 def atanhd(x): return deg(atanh(x))
 
 # Convert base unit to SI prefix
+def exp10(x, y): return x * 10**y
 def to_yotta(x): return exp10(x, -24)
 def to_zetta(x): return exp10(x, -21)
 def to_exa(x): return exp10(x, -18)
