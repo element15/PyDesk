@@ -1,6 +1,6 @@
 #!/usr/bin/env python3 -i
 
-script_version = "20-129a"
+script_version = "20-217a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -34,6 +34,7 @@ from fractions import Fraction
 from random import randint
 import math
 import string
+import re
 
 #################
 ### Constants ###
@@ -133,6 +134,60 @@ def from_femto(x): return exp10(x, -15)
 def from_atto(x): return exp10(x, -18)
 def from_zepto(x): return exp10(x, -21)
 def from_yocto(x): return exp10(x, -24)
+
+########################
+### Unit Conversions ###
+########################
+
+import subprocess # Used for calling out to GNU units
+gnu_units_output = re.compile(
+    r'(?:\t?(?P<reci_note>reciprocal conversion)?\n?'
+    '\t\* (?P<normal>[\d\.\-\+e]+)\n'
+    '\t/ (?P<reciprocal>[\d\.\-\+e]+))|'
+    '(?:(?P<conform_note>conformability error)\n'
+    '\t[\d\.\-\+e]+ (?P<in_unit>[^\n]+)\n'
+    '\t[\d\.\-\+e]+ (?P<out_unit>[^\n]+))')
+gnu_units_executable = 'gunits'
+
+# Evaluate a query using [GNU Units](en.wikipedia.org/wiki/GNU_Units),
+# returning a tuple containing the direct conversion, and the reciprocal
+# conversion, respectively.
+#   v: Number to convert
+#   a: Unit to convert from
+#   b: Unit to convert to
+# If any errors occur, or if the output does not match the expected format, the
+# output of GNU Units will be returned directly as a string.
+def units(v, a, b):
+    result = subprocess.run([gnu_units_executable, f'{v}{a}', b],
+        stdout=subprocess.PIPE).stdout.decode('utf-8')
+    m = gnu_units_output.match(result)
+    if m:
+        if m.group('conform_note'):
+            return (m.group('conform_note'), m.group('in_unit'),
+                m.group('out_unit'))
+        if m.group('reci_note'):
+            return (float(m.group('normal')), float(m.group('reciprocal')),
+                m.group('reci_note'))
+        return (float(m.group('normal')), float(m.group('reciprocal')))
+    return result
+
+# This is a shortcut for the `units()` function. It is defined separately in
+# this manner because it is likely that the variable `u` may be used in
+# calculations. If that is the case, `units()` can still be called by its full
+# name.
+def u(v, a, b): return units(v, a, b)
+
+# Perform a unit conversion, but only return the normal conversion instead of a
+# tuple. If the conversion results in a conformability or unknown error, `None`
+# is returned. In addition, the full output of `units()` is printed unles
+# `silent=True` is specified.
+def uu(v, a, b, silent=False):
+    conv = units(v, a, b)
+    if not silent:
+        print(conv)
+    if not isinstance(conv, tuple) or conv[0] == 'conformability error':
+        return None
+    return conv[0]
 
 ####################
 ### General Math ###
