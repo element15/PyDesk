@@ -290,34 +290,23 @@ def to_base(n, b):
 ###############################
 
 # Absolute zero checks
-abs_zero_f = -459.67
-abs_zero_c = -273.15
-abs_zero_k = 0
-def temp_check_zero(temp, zero):
-    if temp < zero:
+abs_zero = {
+    'f': -459.67,
+    'c': -273.15,
+    'k': 0,
+}
+def temp_check_zero(temp, scale):
+    if temp < abs_zero[scale]:
         print('Result is below absolute zero')
         return float('NaN')
     return round(temp, 8)
 
-# Conversions
-def temp_fc(f):
-    c = (f-32) * (5/9)
-    return temp_check_zero(c, abs_zero_c)
-def temp_cf(c):
-    f = c * (9/5) + 32
-    return temp_check_zero(f, abs_zero_f)
-def temp_ck(c):
-    k = c + 273.15
-    return temp_check_zero(k, abs_zero_k)
-def temp_kc(k):
-    c = k - 273.15
-    return temp_check_zero(c, abs_zero_c)
-def temp_fk(f):
-    k = (f+459.67) * (5/9)
-    return temp_check_zero(k, abs_zero_k)
-def temp_kf(k):
-    f = k * (9/5) - 459.67
-    return temp_check_zero(f, abs_zero_f)
+temp_fc = lambda f : temp_check_zero((f-32)/1.8, 'c')
+temp_cf = lambda c : temp_check_zero(c*1.8 + 32, 'f')
+temp_ck = lambda c : temp_check_zero(c+273.15, 'k')
+temp_kc = lambda k : temp_check_zero(k-273.15, 'c')
+temp_fk = lambda f : temp_check_zero((f+459.67)/1.8, 'k')
+temp_kf = lambda k : temp_check_zero(k*1.8 - 459.67, 'f')
 
 #################
 ### Fractions ###
