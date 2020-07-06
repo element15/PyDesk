@@ -294,6 +294,7 @@ abs_zero = {
     'f': -459.67,
     'c': -273.15,
     'k': 0,
+    'r': 0,
 }
 def temp_check_zero(temp, scale):
     if temp < abs_zero[scale]:
@@ -307,6 +308,12 @@ temp_ck = lambda c : temp_check_zero(c+273.15, 'k')
 temp_kc = lambda k : temp_check_zero(k-273.15, 'c')
 temp_fk = lambda f : temp_check_zero((f+459.67)/1.8, 'k')
 temp_kf = lambda k : temp_check_zero(k*1.8 - 459.67, 'f')
+temp_fr = lambda f : temp_check_zero(f+459.67, 'r')
+temp_rf = lambda r : temp_check_zero(r-459.67, 'f')
+temp_kr = lambda k : temp_check_zero(k*1.8, 'r')
+temp_rk = lambda r : temp_check_zero(r/1.8, 'k')
+temp_cr = lambda c : temp_check_zero((c+273.15)*1.8, 'r')
+temp_rc = lambda r : temp_check_zero(r/1.8 - 273.15, 'c')
 
 #################
 ### Fractions ###
