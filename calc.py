@@ -1,6 +1,6 @@
 #!/usr/bin/env python3 -i
 
-script_version = "20-217a"
+script_version = "20-706a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -31,17 +31,18 @@ from collections import abc
 from datetime import datetime
 from decimal import Decimal
 from fractions import Fraction
-from random import randint
-import math
-import string
+from math import *
+from sys import exit
+import random
 import re
+import string
+import subprocess
+
+import numpy as np
 
 #################
 ### Constants ###
 #################
-
-# General
-from math import (pi, e)
 
 # Chemistry and Thermodynamics
 r_atm = 0.0820574614 # Gas constant (L*atm/mol/K)
@@ -59,7 +60,7 @@ G = 6.673e-11 # Gravitational constant (N*m^2/kg^2)
 
 # Electromagnetism
 ele = 1.602e-19 # Elementary charge (C)
-mu_0 = math.pi / 2.5e+6 # Permiability of a vacuum (N/A^2)
+mu_0 = pi / 2.5e+6 # Permiability of a vacuum (N/A^2)
 epsilon_0 = 8.854e-12 # Permittivity of a vacuum (F/m)
 k_e = 8.988e9 # Coulomb constant (N*m^2/C^2)
 c = 2.998e8 # Speed of light in a vacuum (m/s)
@@ -76,77 +77,71 @@ eV = 1.602e-19 # Electron-volt (J)
 ### Convenience Functions ###
 #############################
 
-from math import (
-	log as ln, log10, exp, sqrt, factorial, gamma, hypot, floor, ceil,
-	radians as rad, degrees as deg,
-	sin, cos, tan, asin, acos, atan, sinh, cosh, tanh, asinh, acosh, atanh)
-
 # Trigonometry in degrees
-def sind(x): return sin(rad(x))
-def cosd(x): return cos(rad(x))
-def tand(x): return tan(rad(x))
-def asind(x): return deg(asin(x))
-def acosd(x): return deg(acos(x))
-def atand(x): return deg(atan(x))
-def sinhd(x): return sinh(rad(x))
-def coshd(x): return cosh(rad(x))
-def asinhd(x): return deg(asinh(x))
-def acoshd(x): return deg(acosh(x))
-def atanhd(x): return deg(atanh(x))
+sind = lambda x : sin(rad(x))
+cosd = lambda x : cos(rad(x))
+tand = lambda x : tan(rad(x))
+asind = lambda x : deg(asin(x))
+acosd = lambda x : deg(acos(x))
+atand = lambda x : deg(atan(x))
+sinhd = lambda x : sinh(rad(x))
+coshd = lambda x : cosh(rad(x))
+asinhd = lambda x : deg(asinh(x))
+acoshd = lambda x : deg(acosh(x))
+atanhd = lambda x : deg(atanh(x))
 
 # Convert base unit to SI prefix
-def exp10(x, y): return x * 10**y
-def to_yotta(x): return exp10(x, -24)
-def to_zetta(x): return exp10(x, -21)
-def to_exa(x): return exp10(x, -18)
-def to_peta(x): return exp10(x, -15)
-def to_tera(x): return exp10(x, -12)
-def to_giga(x): return exp10(x, -9)
-def to_mega(x): return exp10(x, -6)
-def to_kilo(x): return exp10(x, -3)
-def to_centi(x): return exp10(x, 2)
-def to_milli(x): return exp10(x, 3)
-def to_micro(x): return exp10(x, 6)
-def to_nano(x): return exp10(x, 9)
-def to_angstrom(x): return exp10(x, 10)
-def to_pico(x): return exp10(x, 12)
-def to_femto(x): return exp10(x, 15)
-def to_atto(x): return exp10(x, 18)
-def to_zepto(x): return exp10(x, 21)
-def to_yocto(x): return exp10(x, 24)
+exp10 = lambda x, y : x * 10**y
+to_yotta = lambda x : exp10(x, -24)
+to_zetta = lambda x : exp10(x, -21)
+to_exa = lambda x : exp10(x, -18)
+to_peta = lambda x : exp10(x, -15)
+to_tera = lambda x : exp10(x, -12)
+to_giga = lambda x : exp10(x, -9)
+to_mega = lambda x : exp10(x, -6)
+to_kilo = lambda x : exp10(x, -3)
+to_centi = lambda x : exp10(x, 2)
+to_milli = lambda x : exp10(x, 3)
+to_micro = lambda x : exp10(x, 6)
+to_nano = lambda x : exp10(x, 9)
+to_angstrom = lambda x : exp10(x, 10)
+to_pico = lambda x : exp10(x, 12)
+to_femto = lambda x : exp10(x, 15)
+to_atto = lambda x : exp10(x, 18)
+to_zepto = lambda x : exp10(x, 21)
+to_yocto = lambda x : exp10(x, 24)
 
 # Convert SI prefix to base unit
-def from_yotta(x): return exp10(x, 24)
-def from_zetta(x): return exp10(x, 21)
-def from_exa(x): return exp10(x, 18)
-def from_peta(x): return exp10(x, 15)
-def from_tera(x): return exp10(x, 12)
-def from_giga(x): return exp10(x, 9)
-def from_mega(x): return exp10(x, 6)
-def from_kilo(x): return exp10(x, 3)
-def from_centi(x): return exp10(x, -2)
-def from_milli(x): return exp10(x, -3)
-def from_micro(x): return exp10(x, -6)
-def from_nano(x): return exp10(x, -9)
-def from_angstrom(x): return exp10(x, -10)
-def from_pico(x): return exp10(x, -12)
-def from_femto(x): return exp10(x, -15)
-def from_atto(x): return exp10(x, -18)
-def from_zepto(x): return exp10(x, -21)
-def from_yocto(x): return exp10(x, -24)
+from_yotta = lambda x : exp10(x, 24)
+from_zetta = lambda x : exp10(x, 21)
+from_exa = lambda x : exp10(x, 18)
+from_peta = lambda x : exp10(x, 15)
+from_tera = lambda x : exp10(x, 12)
+from_giga = lambda x : exp10(x, 9)
+from_mega = lambda x : exp10(x, 6)
+from_kilo = lambda x : exp10(x, 3)
+from_centi = lambda x : exp10(x, -2)
+from_milli = lambda x : exp10(x, -3)
+from_micro = lambda x : exp10(x, -6)
+from_nano = lambda x : exp10(x, -9)
+from_angstrom = lambda x : exp10(x, -10)
+from_pico = lambda x : exp10(x, -12)
+from_femto = lambda x : exp10(x, -15)
+from_atto = lambda x : exp10(x, -18)
+from_zepto = lambda x : exp10(x, -21)
+from_yocto = lambda x : exp10(x, -24)
 
 ########################
 ### Unit Conversions ###
 ########################
 
-import subprocess # Used for calling out to GNU units
 gnu_units_output = re.compile(
     r'(?:\t?(?P<reci_note>reciprocal conversion)?\n?'
-    '\t\* (?P<normal>[\d\.\-\+e]+)\n'
-    '\t/ (?P<reciprocal>[\d\.\-\+e]+))|'
-    '(?:(?P<conform_note>conformability error)\n'
-    '\t[\d\.\-\+e]+ (?P<in_unit>[^\n]+)\n'
-    '\t[\d\.\-\+e]+ (?P<out_unit>[^\n]+))')
+    r'\t\* (?P<normal>[\d\.\-\+e]+)\n'
+    r'\t/ (?P<reciprocal>[\d\.\-\+e]+))|'
+    r'(?:(?P<conform_note>conformability error)\n'
+    r'\t[\d\.\-\+e]+ (?P<in_unit>[^\n]+)\n'
+    r'\t[\d\.\-\+e]+ (?P<out_unit>[^\n]+))')
 gnu_units_executable = 'gunits'
 
 # Evaluate a query using [GNU Units](en.wikipedia.org/wiki/GNU_Units),
@@ -170,12 +165,7 @@ def units(v, a, b):
                 m.group('reci_note'))
         return (float(m.group('normal')), float(m.group('reciprocal')))
     return result
-
-# This is a shortcut for the `units()` function. It is defined separately in
-# this manner because it is likely that the variable `u` may be used in
-# calculations. If that is the case, `units()` can still be called by its full
-# name.
-def u(v, a, b): return units(v, a, b)
+u = units # shorthand
 
 # Perform a unit conversion, but only return the normal conversion instead of a
 # tuple. If the conversion results in a conformability or unknown error, `None`
@@ -194,38 +184,21 @@ def uu(v, a, b, silent=False):
 ####################
 
 # Evaluate the quadratic formula for ax^2+bx+c=0
-def quad_det(a, b, c):
-    return b**2-4*a*c
+quad_det = lambda a, b, c : b**2 - 4*a*c
 def quad(a, b, c):
-    return ((-b+sqrt(quad_det(a, b, c)))/(2*a),
-            (-b-sqrt(quad_det(a, b, c)))/(2*a))
+    soln_mean = -b/(2*a)
+    soln_radius = sqrt(quad_det(a, b, c))/(2*a)
+    return soln_mean+soln_radius, soln_mean-soln_radius
 
-# Get the midpoint
-def mid(a, b):
-    return (a+b)/2
-def mid2(x1, y1, x2, y2):
-    return (mid(x1, x2), mid(y1, y2))
-# Distance
-def dist(a, b):
-    return b-a
-def dist2(x1, y1, x2, y2):
-    return (dist(x1, x2)**2 + dist(y1, y2)**2)**0.5
+mid = lambda a, b : (a+b)/2
+mid2d = lambda x1, y1, x2, y2 : (mid(x1, x2), mid(y1, y2))
+dist2d = lambda x1, y1, x2, y2 : ((x2-x1)**2 + (y2-y1)**2)**0.5
 
 # Linear interpolation
-def lint(x1, xn, x2, y1, y2):
-    return (y2 - y1) / (x2 - x1) * (xn - x1) + y1
+lint = lambda x1, xn, x2, y1, y2 : (y2 - y1) / (x2 - x1) * (xn - x1) + y1
 
-# Pythagorean theorem
-def pythleg(c, a):
-    return sqrt(c**2 - a**2)
-
-# Generate diceware values
-def diceware(n = 5):
-    for i in range(0, n):
-        print(str(i + 1) + ": ", end="")
-        for i in range(0, 5):
-            print(randint(1, 6), end="")
-        print()
+# Pythagorean leg
+leg = lambda a, c : sqrt(abs(c**2 - a**2))
 
 ######################
 ### Thermodynamics ###
@@ -240,8 +213,7 @@ def heat_cp_mol(T, *coeff):
     return c_p
 
 # Calculate internal energy specific heat on a mole basis
-def heat_cv_mol(R, T, *coeff):
-    return heat_cp_mol(T, coeff) - R
+heat_cv_mol = lambda R, T, *coeff : heat_cp_mol(T, coeff) - R
 
 # Calculate enthalpy on a mole basis
 def heat_h_mol(T, *coeff):
@@ -261,16 +233,16 @@ def heat_u_mol(R, T, *coeff):
 ### Number Formatting ###
 #########################
 
-# Convert x to scientific notation
-def sci(x, sigfig = 6):
+# Scientific notation
+def sci(x, sigfig=6):
     sigfig
     if sigfig < 1:
         sigfig = 1
-    string = "{:." + str(sigfig - 1) + "e}"
+    string = '{:.' + str(sigfig - 1) + 'e}'
     return string.format(x)
 
-# Convert x to engineering notation
-def eng(x, sigfig = 6):
+# Engineering notation
+def eng(x, sigfig=6):
     sci_string = sci(x)
     components = sci_string.split('e')
     exponent = int(components[1])
@@ -288,7 +260,6 @@ def eng(x, sigfig = 6):
             ('0' if abs(new_exponent) < 10 else '') + str(abs(new_exponent))
     return out
 
-# Convert an int n to an arbitrary base b (as string)
 def to_base(n, b):
     num_dict = string.digits + string.ascii_lowercase
     if n < 0:
@@ -317,7 +288,7 @@ abs_zero_c = -273.15
 abs_zero_k = 0
 def temp_check_zero(temp, zero):
     if temp < zero:
-        print("Invalid. Result is below absolute zero.")
+        print('Result is below absolute zero')
         return float('NaN')
     return round(temp, 8)
 
@@ -345,21 +316,16 @@ def temp_kf(k):
 ### Fractions ###
 #################
 
-# Creates a Fraction object
-def getfrac(x):
-    return Fraction(x).limit_denominator()
+getfrac = lambda x : Fraction(x).limit_denominator()
 
-# Prints a string representation of x as a fraction
-def frac(x):
-    print(getfrac(x))
+frac = lambda x : print(getfrac(x))
 
-# Prints a mixed number representation of x
 def mix(x):
     fraction = getfrac(x)
     numerator = fraction.numerator
     denominator = fraction.denominator
     if numerator > denominator:
-        whole = math.floor(x)
+        whole = floor(x)
         mixed_numerator = numerator - whole * denominator
         print("%d %d/%d" % (whole, mixed_numerator, denominator))
     else:
@@ -439,35 +405,11 @@ def flatten_list(*x):
         m = []
     return n
 
-# Given a (possibly deeply nested) list of numbers, produce a flattened list of
-# floating-point numbers. No guarentees are made regarding the order of the
-# output values with respect to the input structure.
-def to_float_list(*x):
-    n = flatten_list(x)
-    m = []
-    for i in n:
-        m.append(float(i))
-    return m
-
-# Similar to to_float_list(), but casts all numbers to int().
-def to_int_list(*x):
-    n = flatten_list(x)
-    m = []
-    for i in n:
-        m.append(int(i))
-    return m
-
-# Floating-point sum of a list
-def fsum(*x):
-    return math.fsum(to_float_list(x))
+# Flatten using `flatten_list()` and cast all values to `dtype`.
+to_type_list = lambda dtype, *x : [dtype(i) for i in flatten_list(x)]
 
 # Integer sum of a list
-def isum(*x):
-    n = to_int_list(x)
-    sum = 0
-    for i in n:
-        sum += i
-    return int(sum)
+isum = lambda *x : sum(to_type_list(int, x))
 
 # Arithmetic mean of a list
 def mean(*x):
@@ -476,7 +418,7 @@ def mean(*x):
 
 # Population Standard Deviation of a list
 def stdDev(*x):
-    n = to_float_list(x)
+    n = to_type_list(float, x)
     avg = mean(n)
     total_deviation = 0
     for i in n:
@@ -495,9 +437,7 @@ def pctRSD(*x):
 ################################
 
 # Given an integer from 1 to 12 (inclusive) representing a month, or the name
-# of a month return the number of days in that month, ignoring leap years. If
-# an invalid input is received, the function will not throw an exception, but
-# will silently return 31.
+# of a month return the number of days in that month, ignoring leap years.
 def days_in_month(month):
     month_names = { 'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5, 'jun': 6,
             'jul': 7, 'aug': 8, 'sep': 9, 'oct': 10, 'nov': 11, 'dec': 12}
@@ -507,11 +447,11 @@ def days_in_month(month):
     except ValueError:
         try:
             month_number = month_names[str(month).lower()[:3]]
-        except KeyError: # Will default to 31 days
+        except KeyError:
             month_number = 0
     if month_number in shortmonths:
         return 30
-    elif month_number == 2: # Februrary
+    elif month_number == 2:
         return 28
     else: # For simplicity, assume 31 days if input is invalid.
         return 31
@@ -521,7 +461,7 @@ def days_in_month(month):
 # allowance for each month (also in Gigabytes), calculate statistics for how
 # much data should be used to yield a uniform usage pattern throughout the
 # month.
-def data(gb, total, reset_day = 11):
+def data(gb, total, reset_day=11):
     now = datetime.now()
     if now.day >= reset_day:
         totalDays = days_in_month(now.month)
@@ -539,31 +479,27 @@ def data(gb, total, reset_day = 11):
     coefficient = cycleRate / idealRate
     daysUsed = cycleUsage / idealRate
 
-    print("     Cycle Usage: %d MiB" % cycleUsage)
-    print("     Ideal Usage: %d MiB" % idealUsage)
-    print("       Net Usage: %d MiB" % netUsage)
-    print("      Cycle Rate: %d MiB/day" % cycleRate)
-    print("      Ideal Rate: %d MiB/day" % idealRate)
-    print("        Net Rate: %d MiB/day" % netRate)
-    print(" Use Coefficient: %f" % coefficient)
-    print("       Cycle Day: %d / %d" % (cycleDay, totalDays))
-    print("       Ideal Day: %d" % daysUsed)
+    print(
+        f'     Cycle Usage: {cycleUsage:d} MiB\n'
+        f'     Ideal Usage: {idealUsage:d} MiB\n'
+        f'       Net Usage: {netUsage:d} MiB\n'
+        f'      Cycle Rate: {cycleRate:d} MiB/day\n'
+        f'      Ideal Rate: {idealRate:d} MiB/day\n'
+        f'        Net Rate: {netRate:d} MiB/day\n'
+        f' Use Coefficient: {coefficient:f}\n'
+        f'       Cycle Day: {cycleDay:d} / {totalDays:d}\n'
+        f'       Ideal Day: {daysUsed:d}')
 
     if netUsage < 0:
         daysBehind = -netUsage / idealRate + 1
-        print("        Catch up: %d" % daysBehind)
+        print(f'        Catch up: {daysBehind:d}')
 
 ######################
 ### Exit functions ###
 ######################
 
-# Each of the following functions may be used to cleanly exit the Python
-# interpreter. These can be useful in terminal emulators which do not exit upon
-# reciept of a ^D signal.
-def exit():
-    import sys
-    sys.exit()
-def quit(): exit()
-def bye(): exit()
+# Alternatives for sys.exit.
+quit = exit
+bye = exit
 
-print("PyDesk, version " + script_version)
+print(f'PyDesk, version {script_version}')
