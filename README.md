@@ -6,18 +6,18 @@ To invoke PyDesk, run `python3 -i /path/to/calc.py`
 
 ## Command Categories
 Functions in PyDesk fall into the following categories:
-   * Constants
-   * Fundamentals
-   * Trigonometry
-   * SI prefixes
-   * General-purpose
-   * Number formatting
-   * Temperature
-   * Fractions
-   * Vectors
-   * Lists
-   * Cellular data statistics
-   * Exit
+   - [Constants](#constants)
+   - [Fundamentals](#fundamentals)
+   - [Trigonometry](#trigonometry)
+   - [SI Prefixes](#si-prefixes)
+   - [General Purpose](#general-purpose)
+   - [Number Formatting](#number-formatting)
+   - [Temperature](#temperature-conversions)
+   - [Fractions](#fractions)
+   - [Vectors](#vectors)
+   - [Lists](#lists)
+   - [Cellular Data Statistics](#cellular-data-statistics)
+   - [Exit](#exit-functions)
 
 ## Constants
 PyDesk includes several mathematical and physical constants which may be helpful for calculations. These constants and their units are outlined below.
@@ -120,7 +120,7 @@ These functions convert to a base unit from the specified SI prefix. To convert 
 | from_zepto(x) | float x | float | x \* 10<sup>-21</sup> |
 | from_yocto(x) | float x | float | x \* 10<sup>-24</sup> |
 
-## General-Purpose
+## General Purpose
 General math functions not included in Python's standard library
 
 | Function | Arguments | Returns | Description |
