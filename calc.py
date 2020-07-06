@@ -78,8 +78,8 @@ eV = 1.602e-19 # Electron-volt (J)
 #############################
 
 # Trigonometry in degrees
-to_rad = lambda f: lambda x: f(rad(x))
-to_deg = lambda f: lambda x: deg(f(x))
+to_rad = lambda f : lambda x : f(rad(x))
+to_deg = lambda f : lambda x : deg(f(x))
 
 sind = to_rad(sin)
 cosd = to_rad(cos)
@@ -94,9 +94,9 @@ acoshd = to_deg(acosh)
 atanhd = to_deg(atanh)
 
 # Convert base unit to SI prefix
-def exp10(x, y): return x * 10 ** y
+exp10 = lambda x, y : x * 10**y
 
-to_exp = lambda n: lambda x: exp10(x, n)
+to_exp = lambda n : lambda x : exp10(x, n)
 
 to_yotta = to_exp(-24)
 to_zetta = to_exp(-21)

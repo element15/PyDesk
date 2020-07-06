@@ -10,7 +10,7 @@ Functions in PyDesk fall into the following categories:
    - [Fundamentals](#fundamentals)
    - [Trigonometry](#trigonometry)
    - [SI Prefixes](#si-prefixes)
-   - [General Purpose](#general-purpose)
+   - [General-Purpose](#general-purpose)
    - [Number Formatting](#number-formatting)
    - [Temperature](#temperature-conversions)
    - [Fractions](#fractions)
@@ -120,7 +120,7 @@ These functions convert to a base unit from the specified SI prefix. To convert 
 | from_zepto(x) | float x | float | x \* 10<sup>-21</sup> |
 | from_yocto(x) | float x | float | x \* 10<sup>-24</sup> |
 
-## General Purpose
+## General-Purpose
 General math functions not included in Python's standard library
 
 | Function | Arguments | Returns | Description |
