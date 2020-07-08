@@ -366,14 +366,7 @@ def mix(x):
 
 # Convert an n-dimensional vector to a 3-dimensional one
 def vector_to_3d(a):
-    n = len(a)
-    if n == 1:
-        return (a[0], 0, 0)
-    if n == 2:
-        return (a[0], a[1], 0)
-    if n >= 3:
-        return (a[0], a[1], a[2])
-    return (0, 0, 0) # This should only happen if n == 0
+    return tuple((list(a) + [0] * 3)[:3])
 
 def vcross(a, b): # cross (vector) product of vector a and vector b
     a_ = vector_to_3d(a)
