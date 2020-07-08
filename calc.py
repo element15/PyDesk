@@ -78,6 +78,8 @@ eV = 1.602e-19 # Electron-volt (J)
 #############################
 
 # Trigonometry in degrees
+rad = radians
+deg = degrees
 to_rad = lambda f : lambda x : f(rad(x))
 to_deg = lambda f : lambda x : deg(f(x))
 
