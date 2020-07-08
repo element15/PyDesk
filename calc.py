@@ -1,6 +1,6 @@
 #!/usr/bin/env python3 -i
 
-script_version = "20-706a"
+script_version = "20-708a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -284,6 +284,30 @@ def to_base(n, b):
         digits.append('-')
     digits.reverse()
     return ''.join(digits)
+
+# Convert a decimal value to (degrees, minutes, seconds)
+def to_dms(n):
+    hemisphere = copysign(1, n)
+    n_pos = abs(n)
+    degrees = int(n_pos)
+    minutes_full = 60 * (n_pos-degrees)
+    minutes = int(min_full)
+    seconds = 60 * (minutes_full-minutes)
+    return copysign(degrees, hemisphere), minutes, seconds
+# Convert a (degrees, minutes, seconds) value to decimal
+def from_dms(n):
+    deg = abs(n[0])
+    dec = deg + n[1]/60 + n[2]/3600
+    return copysign(dec, n[0])
+# Convert a pair of decimal degree values to a pretty DMS string
+def pretty_dms(lat, lon):
+    latd, latm, lats = to_dms(lat)
+    lond, lonm, lons = to_dms(lon)
+    ns_hemisphere = 'N' if lat >= 0 else 'S'
+    ew_hemisphere = 'E' if lon >= 0 else 'W'
+    return (
+    	f'{abs(latd):.0f}˚ {latm:.0f}\' {lats:.3f}" {ns_hemisphere}, '
+        f'{abs(lond):.0f}˚ {lonm:.0f}\' {lons:.3f}" {ew_hemisphere}')
 
 ###############################
 ### Temperature Conversions ###
