@@ -83,6 +83,8 @@ eV = 1.602e-19 # Electron-volt (J)
 ### Convenience Functions ###
 #############################
 
+ln = log
+
 # Trigonometry in degrees
 rad = radians
 deg = degrees
