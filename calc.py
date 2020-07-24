@@ -1,6 +1,6 @@
 #!/usr/bin/env python3 -i
 
-script_version = "20-708a"
+script_version = "20-724a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -250,6 +250,20 @@ def heat_u_mol(R, T, *coeff):
 ### Number Formatting ###
 #########################
 
+getfrac = lambda x, denom=MAX_FRAC_DENOM : Fraction(x).limit_denominator(denom)
+frac = lambda x, denom=MAX_FRAC_DENOM : print(getfrac(x, denom))
+
+def mix(x, denom=MAX_FRAC_DENOM):
+    fraction = getfrac(x, denom)
+    numerator = fraction.numerator
+    denominator = fraction.denominator
+    if numerator > denominator:
+        whole = floor(x)
+        mixed_numerator = numerator - whole * denominator
+        print("%d %d/%d" % (whole, mixed_numerator, denominator))
+    else:
+        print("%d/%d" % (numerator, denominator))
+
 # Scientific notation
 def sci(x, sigfig=6):
     sigfig
@@ -348,25 +362,6 @@ temp_kr = lambda k : temp_check_zero(k*1.8, 'r')
 temp_rk = lambda r : temp_check_zero(r/1.8, 'k')
 temp_cr = lambda c : temp_check_zero((c+273.15)*1.8, 'r')
 temp_rc = lambda r : temp_check_zero(r/1.8 - 273.15, 'c')
-
-#################
-### Fractions ###
-#################
-
-
-getfrac = lambda x, denom=MAX_FRAC_DENOM : Fraction(x).limit_denominator(denom)
-frac = lambda x, denom=MAX_FRAC_DENOM : print(getfrac(x, denom))
-
-def mix(x, denom=MAX_FRAC_DENOM):
-    fraction = getfrac(x, denom)
-    numerator = fraction.numerator
-    denominator = fraction.denominator
-    if numerator > denominator:
-        whole = floor(x)
-        mixed_numerator = numerator - whole * denominator
-        print("%d %d/%d" % (whole, mixed_numerator, denominator))
-    else:
-        print("%d/%d" % (numerator, denominator))
 
 ###############
 ### Vectors ###
