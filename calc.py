@@ -40,6 +40,12 @@ import subprocess
 
 import numpy as np
 
+##################
+### Parameters ###
+##################
+
+MAX_FRAC_DENOM = 1024
+
 #################
 ### Constants ###
 #################
@@ -345,12 +351,12 @@ temp_rc = lambda r : temp_check_zero(r/1.8 - 273.15, 'c')
 ### Fractions ###
 #################
 
-getfrac = lambda x : Fraction(x).limit_denominator()
 
-frac = lambda x : print(getfrac(x))
+getfrac = lambda x, denom=MAX_FRAC_DENOM : Fraction(x).limit_denominator(denom)
+frac = lambda x, denom=MAX_FRAC_DENOM : print(getfrac(x, denom))
 
-def mix(x):
-    fraction = getfrac(x)
+def mix(x, denom=MAX_FRAC_DENOM):
+    fraction = getfrac(x, denom)
     numerator = fraction.numerator
     denominator = fraction.denominator
     if numerator > denominator:
