@@ -45,6 +45,8 @@ import numpy as np
 ##################
 
 MAX_FRAC_DENOM = 1024
+GNU_UNITS_EXECUTABLE = 'gunits'
+CELLULAR_RESET_DAY = 11
 
 #################
 ### Constants ###
@@ -103,11 +105,10 @@ asinhd = to_deg(asinh)
 acoshd = to_deg(acosh)
 atanhd = to_deg(atanh)
 
-# Convert base unit to SI prefix
 exp10 = lambda x, y : x * 10**y
-
 to_exp = lambda n : lambda x : exp10(x, n)
 
+# Convert base unit to SI prefix
 to_yotta = to_exp(-24)
 to_zetta = to_exp(-21)
 to_exa = to_exp(-18)
@@ -128,7 +129,6 @@ to_zepto = to_exp(21)
 to_yocto = to_exp(24)
 
 # Convert SI prefix to base unit
-
 from_yotta = to_exp(24)
 from_zetta = to_exp(21)
 from_exa = to_exp(18)
@@ -159,18 +159,21 @@ gnu_units_output = re.compile(
     r'(?:(?P<conform_note>conformability error)\n'
     r'\t[\d\.\-\+e]+ (?P<in_unit>[^\n]+)\n'
     r'\t[\d\.\-\+e]+ (?P<out_unit>[^\n]+))')
-gnu_units_executable = 'gunits'
 
-# Evaluate a query using [GNU Units](en.wikipedia.org/wiki/GNU_Units),
-# returning a tuple containing the direct conversion, and the reciprocal
-# conversion, respectively.
-#   v: Number to convert
-#   a: Unit to convert from
-#   b: Unit to convert to
-# If any errors occur, or if the output does not match the expected format, the
-# output of GNU Units will be returned directly as a string.
 def units(v, a, b):
-    result = subprocess.run([gnu_units_executable, f'{v}{a}', b],
+    """Convert units using GNU Units.
+
+    Parameters:
+        - v: Value to convert
+        - a: Current unit
+        - b: Desired unit
+
+    Returns:
+        Tuple containing the direct conversion ('*') and the recriprocal
+        conversion ('/'), respectively. If any errors occur, the output of
+        GNU Units will be returned directly as a string.
+    """
+    result = subprocess.run([GNU_UNITS_EXECUTABLE, f'{v}{a}', b],
         stdout=subprocess.PIPE).stdout.decode('utf-8')
     m = gnu_units_output.match(result)
     if m:
@@ -184,11 +187,19 @@ def units(v, a, b):
     return result
 u = units # shorthand
 
-# Perform a unit conversion, but only return the normal conversion instead of a
-# tuple. If the conversion results in a conformability or unknown error, `None`
-# is returned. In addition, the full output of `units()` is printed unles
-# `silent=True` is specified.
 def uu(v, a, b, silent=False):
+    """Convert using `units()` and unpack the resulting tuple.
+
+    Parameters:
+        - v: Value to convert
+        - a: Current unit
+        - b: Desired unit
+        - silent: Do not print the full conversion result to stdout
+            (default: False)
+
+    Returns:
+        Direct conversion ('*'). If any errors occur, None is returned.
+    """
     conv = units(v, a, b)
     if not silent:
         print(conv)
@@ -200,9 +211,9 @@ def uu(v, a, b, silent=False):
 ### General Math ###
 ####################
 
-# Evaluate the quadratic formula for ax^2+bx+c=0
 quad_det = lambda a, b, c : b**2 - 4*a*c
 def quad(a, b, c):
+    """Quadratic formula for ax**2 + bx + c = 0."""
     soln_mean = -b/(2*a)
     soln_radius = sqrt(quad_det(a, b, c))/(2*a)
     return soln_mean+soln_radius, soln_mean-soln_radius
@@ -212,7 +223,13 @@ mid2d = lambda x1, y1, x2, y2 : (mid(x1, x2), mid(y1, y2))
 dist2d = lambda x1, y1, x2, y2 : ((x2-x1)**2 + (y2-y1)**2)**0.5
 
 # Linear interpolation
-lint = lambda x1, xn, x2, y1, y2 : (y2 - y1) / (x2 - x1) * (xn - x1) + y1
+def lint(x1, xn, x2, y1, y2):
+    """Linear interpolate points.
+
+    Calculate some point `yn` between `y1` and `y2` which is proportional to
+    the point `xn` between `x1` and `x2`.
+    """
+    return (y2-y1)/(x2-x1)*(xn-x1) + y1
 
 # Pythagorean leg
 leg = lambda a, c : sqrt(abs(c**2 - a**2))
@@ -221,27 +238,28 @@ leg = lambda a, c : sqrt(abs(c**2 - a**2))
 ### Thermodynamics ###
 ######################
 
-# Calculate enthalpy specific heat on a mole basis
 def heat_cp_mol(T, *coeff):
+    """Enthalpy specific heat on a mole basis."""
     coeff = flatten_list(coeff)
     c_p = 0;
     for i in range(0, 3):
         c_p += coeff[i] * T**i
     return c_p
 
-# Calculate internal energy specific heat on a mole basis
-heat_cv_mol = lambda R, T, *coeff : heat_cp_mol(T, coeff) - R
+def heat_cv_mol(R, T, *coeff):
+    """Internal energy specific heat on a mole basis."""
+    return heat_cp_mol(T, coeff) - R
 
-# Calculate enthalpy on a mole basis
 def heat_h_mol(T, *coeff):
+    """Enthalpy on a mole basis."""
     coeff = flatten_list(coeff)
     h = 0
     for i in range(0, 3):
         h += coeff[i] * T**(i + 1) / (i + 1)
     return h
 
-# Calculate internal energy on a mole basis
 def heat_u_mol(R, T, *coeff):
+    """Internal energy on a mole basis."""
     coeff = flatten_list(coeff)
     h =  heat_h_mol(T, coeff)
     return h - R * T
@@ -264,16 +282,16 @@ def mix(x, denom=MAX_FRAC_DENOM):
     else:
         print("%d/%d" % (numerator, denominator))
 
-# Scientific notation
 def sci(x, sigfig=6):
+    """Format a number in scientific notation."""
     sigfig
     if sigfig < 1:
         sigfig = 1
     string = '{:.' + str(sigfig - 1) + 'e}'
     return string.format(x)
 
-# Engineering notation
 def eng(x, sigfig=6):
+    """Format a number in engineering notation."""
     sci_string = sci(x)
     components = sci_string.split('e')
     exponent = int(components[1])
@@ -292,6 +310,7 @@ def eng(x, sigfig=6):
     return out
 
 def to_base(n, b):
+    """Convert a number to an arbitrary base."""
     num_dict = string.digits + string.ascii_lowercase
     if n < 0:
         sign = -1
@@ -309,8 +328,8 @@ def to_base(n, b):
     digits.reverse()
     return ''.join(digits)
 
-# Convert a decimal value to (degrees, minutes, seconds)
 def to_dms(n):
+    """Convert a decimal degree value to (degrees, minutes, seconds)."""
     hemisphere = copysign(1, n)
     n_pos = abs(n)
     degrees = int(n_pos)
@@ -318,13 +337,13 @@ def to_dms(n):
     minutes = int(min_full)
     seconds = 60 * (minutes_full-minutes)
     return copysign(degrees, hemisphere), minutes, seconds
-# Convert a (degrees, minutes, seconds) value to decimal
 def from_dms(n):
+    """Convert a (degrees, minutes, seconds) value to decimal degrees."""
     deg = abs(n[0])
     dec = deg + n[1]/60 + n[2]/3600
     return copysign(dec, n[0])
-# Convert a pair of decimal degree values to a pretty DMS string
 def pretty_dms(lat, lon):
+    """Convert a pair of decimal degree values to a pretty DMS string."""
     latd, latm, lats = to_dms(lat)
     lond, lonm, lons = to_dms(lon)
     ns_hemisphere = 'N' if lat >= 0 else 'S'
@@ -342,8 +361,7 @@ abs_zero = {
     'f': -459.67,
     'c': -273.15,
     'k': 0,
-    'r': 0,
-}
+    'r': 0}
 def temp_check_zero(temp, scale):
     if temp < abs_zero[scale]:
         print('Result is below absolute zero')
@@ -409,11 +427,12 @@ def dvtheta(a, b): # find the angle between two vectors in degrees
 ### Lists ###
 #############
 
-# Given a list containing some combination of (possibly deeply nested) Iterables
-# and non-iterables, produce a single list of non-iterables. No guarentees are
-# made regarding the order of the output values with respect to the input
-# structure.
 def flatten_list(*x):
+    """Flatten nested lists.
+
+    No guarentees are made regarding the order of the output values with
+    respect to the input structure.
+    """
     n = x
     m = []
     is_flat = False
@@ -436,13 +455,13 @@ to_type_list = lambda dtype, *x : [dtype(i) for i in flatten_list(x)]
 # Integer sum of a list
 isum = lambda *x : sum(to_type_list(int, x))
 
-# Arithmetic mean of a list
 def mean(*x):
+    """Arithmetic mean."""
     n = flatten_list(x)
     return fsum(n) / len(n)
 
-# Population Standard Deviation of a list
 def stdDev(*x):
+    """Population standard deviation."""
     n = to_type_list(float, x)
     avg = mean(n)
     total_deviation = 0
@@ -450,8 +469,8 @@ def stdDev(*x):
         total_deviation += (i - avg) ** 2
     return sqrt(1 / len(n) * total_deviation)
 
-# %RSD of a list
 def pctRSD(*x):
+    """Percent relative standard deviation (using population stdDev)."""
     try:
         return stdDev(x) / mean(x) * 100
     except ZeroDivisionError:
@@ -461,9 +480,8 @@ def pctRSD(*x):
 ### Cellular Data Statistics ###
 ################################
 
-# Given an integer from 1 to 12 (inclusive) representing a month, or the name
-# of a month return the number of days in that month, ignoring leap years.
 def days_in_month(month):
+    """Number of days in the month (leap years notwithstanding)."""
     month_names = { 'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5, 'jun': 6,
             'jul': 7, 'aug': 8, 'sep': 9, 'oct': 10, 'nov': 11, 'dec': 12}
     shortmonths = [4, 6, 9, 11]
@@ -481,12 +499,13 @@ def days_in_month(month):
     else: # For simplicity, assume 31 days if input is invalid.
         return 31
 
+def data(gb, total, reset_day=CELLULAR_RESET_DAY):
+    """Ration limited cellular data.
 
-# Given the current amount of data used (in Gigabytes), and the total data
-# allowance for each month (also in Gigabytes), calculate statistics for how
-# much data should be used to yield a uniform usage pattern throughout the
-# month.
-def data(gb, total, reset_day=11):
+    Given the current amount of data used (in GiB) and the total data allowance
+    for each month (in GiB), calculate statistics for how much data should be
+    used to yield a uniform usage pattern throughout the month.
+    """
     now = datetime.now()
     if now.day >= reset_day:
         totalDays = days_in_month(now.month)
