@@ -1,6 +1,6 @@
 #!/usr/bin/env python3 -i
 
-script_version = "20-724a"
+script_version = "20-730a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -33,6 +33,7 @@ from decimal import Decimal
 from fractions import Fraction
 from math import *
 from sys import exit
+import cmath
 import random
 import re
 import string
@@ -71,7 +72,7 @@ ele = 1.602e-19 # Elementary charge (C)
 mu_0 = pi / 2.5e+6 # Permiability of a vacuum (N/A^2)
 epsilon_0 = 8.854e-12 # Permittivity of a vacuum (F/m)
 k_e = 8.988e9 # Coulomb constant (N*m^2/C^2)
-c = 2.998e8 # Speed of light in a vacuum (m/s)
+c = 299_792_458 # Speed of light in a vacuum (m/s)
 
 # Quantum Physics
 h = 6.626e-34 # Planck constant (J*s)
@@ -215,7 +216,7 @@ quad_det = lambda a, b, c : b**2 - 4*a*c
 def quad(a, b, c):
     """Quadratic formula for ax**2 + bx + c = 0."""
     soln_mean = -b/(2*a)
-    soln_radius = sqrt(quad_det(a, b, c))/(2*a)
+    soln_radius = cmath.sqrt(quad_det(a, b, c))/(2*a)
     return soln_mean+soln_radius, soln_mean-soln_radius
 
 mid = lambda a, b : (a+b)/2
