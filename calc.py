@@ -1,6 +1,6 @@
 #!/usr/bin/env python3 -i
 
-script_version = "20-925b"
+script_version = "20-925c"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -40,6 +40,7 @@ import string
 import subprocess
 
 import numpy as np
+import pyproj
 
 import config
 
@@ -76,6 +77,11 @@ m_p = 1.673e-27 # Proton mass (kg)
 m_n = 1.675e-27 # Neutron mass (kg)
 eV = 1.602e-19 # Electron-volt (J)
 
+# Coordinate transformations
+EPSG_ECEF = 4978 # ID for Earth Centered, Earth Fixed coordinates
+EPSG_LLA = 4326 # ID for Latitude, Longitude, Altitude coordinates
+earth_dia = 12_742_018 # Mean diameter of the earth (m)
+
 #############################
 ### Convenience Functions ###
 #############################
@@ -101,47 +107,30 @@ acoshd = to_deg(acosh)
 atanhd = to_deg(atanh)
 
 exp10 = lambda x, y : x * 10**y
-to_exp = lambda n : lambda x : exp10(x, n)
 
-# Convert base unit to SI prefix
-to_yotta = to_exp(-24)
-to_zetta = to_exp(-21)
-to_exa = to_exp(-18)
-to_peta = to_exp(-15)
-to_tera = to_exp(-12)
-to_giga = to_exp(-9)
-to_mega = to_exp(-6)
-to_kilo = to_exp(-3)
-to_centi = to_exp(2)
-to_milli = to_exp(3)
-to_micro = to_exp(6)
-to_nano = to_exp(9)
-to_angstrom = to_exp(10)
-to_pico = to_exp(12)
-to_femto = to_exp(15)
-to_atto = to_exp(18)
-to_zepto = to_exp(21)
-to_yocto = to_exp(24)
-
-# Convert SI prefix to base unit
-from_yotta = to_exp(24)
-from_zetta = to_exp(21)
-from_exa = to_exp(18)
-from_peta = to_exp(15)
-from_tera = to_exp(12)
-from_giga = to_exp(9)
-from_mega = to_exp(6)
-from_kilo = to_exp(3)
-from_centi = to_exp(-2)
-from_milli = to_exp(-3)
-from_micro = to_exp(-6)
-from_nano = to_exp(-9)
-from_angstrom = to_exp(-10)
-from_pico = to_exp(-12)
-from_femto = to_exp(-15)
-from_atto = to_exp(-18)
-from_zepto = to_exp(-21)
-from_yocto = to_exp(-24)
+si_prefixes = {
+    'Y': 24, 'Z': 21, 'E': 18, 'P': 15, 'T': 12,
+    'G': 9, 'M': 6, 'k': 3, 'h': 2, 'da': 1,
+    'd': -1, 'c': -2, 'm': -3, 'µ': -6, 'n': -9,
+    'Å': -10, 'p': -12, 'f': -15, 'a': -18, 'z': -21, 'y': -24,
+    }
+si_prefix_names = {
+    'yotta': 'Y', 'zetta': 'Z', 'exa': 'E', 'peta': 'P', 'tera': 'T',
+    'giga': 'G', 'mega': 'M', 'kilo': 'k', 'hecto': 'h', 'deca': 'da',
+    'deci': 'd', 'centi': 'c', 'milli': 'm', 'micro': 'µ', 'nano': 'n',
+    'angstrom': 'Å', 'pico': 'p', 'femto': 'f', 'atto': 'a', 'zepto': 'z',
+    'yocto': 'y',
+    }
+def to_prefix(val, prefix):
+    """Convert a base unit to an SI prefix."""
+    if prefix.lower() in si_prefix_names:
+        prefix = si_prefix_names[prefix.lower()]
+    return exp10(val, -si_prefixes[prefix])
+def from_prefix(val, prefix):
+    """Convert an SI prefix to base units."""
+    if prefix.lower() in si_prefix_names:
+        prefix = si_prefix_names[prefix.lower()]
+    return exp10(val, si_prefixes[prefix])
 
 ########################
 ### Unit Conversions ###
@@ -365,6 +354,9 @@ def pretty_dms(lat, lon):
     return (
     	f'{abs(latd):.0f}˚ {latm:.0f}\' {lats:.3f}" {ns_hemisphere}, '
         f'{abs(lond):.0f}˚ {lonm:.0f}\' {lons:.3f}" {ew_hemisphere}')
+
+ecef_lla = pyproj.Transformer.from_crs(EPSG_ECEF, EPSG_LLA).transform
+lla_ecef = pyproj.Transformer.from_crs(EPSG_LLA, EPSG_ECEF).transform
 
 ###############
 ### Vectors ###
