@@ -1,6 +1,6 @@
 #!/usr/bin/env python3 -i
 
-script_version = "20-730a"
+script_version = "20-925a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -41,13 +41,7 @@ import subprocess
 
 import numpy as np
 
-##################
-### Parameters ###
-##################
-
-MAX_FRAC_DENOM = 1024
-GNU_UNITS_EXECUTABLE = 'gunits'
-CELLULAR_RESET_DAY = 11
+import config
 
 #################
 ### Constants ###
@@ -174,7 +168,7 @@ def units(v, a, b):
         conversion ('/'), respectively. If any errors occur, the output of
         GNU Units will be returned directly as a string.
     """
-    result = subprocess.run([GNU_UNITS_EXECUTABLE, f'{v}{a}', b],
+    result = subprocess.run([config.gnu_units_executable, f'{v}{a}', b],
         stdout=subprocess.PIPE).stdout.decode('utf-8')
     m = gnu_units_output.match(result)
     if m:
@@ -269,10 +263,11 @@ def heat_u_mol(R, T, *coeff):
 ### Number Formatting ###
 #########################
 
-getfrac = lambda x, denom=MAX_FRAC_DENOM : Fraction(x).limit_denominator(denom)
-frac = lambda x, denom=MAX_FRAC_DENOM : print(getfrac(x, denom))
+getfrac = lambda x, denom=config.max_frac_denom : (
+    Fraction(x).limit_denominator(denom))
+frac = lambda x, denom=config.max_frac_denom : print(getfrac(x, denom))
 
-def mix(x, denom=MAX_FRAC_DENOM):
+def mix(x, denom=config.max_frac_denom):
     fraction = getfrac(x, denom)
     numerator = fraction.numerator
     denominator = fraction.denominator
@@ -500,7 +495,7 @@ def days_in_month(month):
     else: # For simplicity, assume 31 days if input is invalid.
         return 31
 
-def data(gb, total, reset_day=CELLULAR_RESET_DAY):
+def data(gb, total, reset_day=config.cellular_reset_day):
     """Ration limited cellular data.
 
     Given the current amount of data used (in GiB) and the total data allowance
