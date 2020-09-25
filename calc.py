@@ -1,6 +1,6 @@
 #!/usr/bin/env python3 -i
 
-script_version = "20-925a"
+script_version = "20-925b"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -202,6 +202,24 @@ def uu(v, a, b, silent=False):
         return None
     return conv[0]
 
+def temp(t, scales):
+    """Convert temperature `t` between scales specified by `scales`."""
+    conv = { # (absolute_zero, kelvin_per_degree)
+        'f': (-459.67, 5/9),
+        'c': (-273.15, 1),
+        'r': (0, 5/9),
+        'k': (0, 1),
+    }
+    s1, s2 = scales.lower()
+    z1, f1 = conv[s1]
+    z2, f2 = conv[s2]
+    t_kelvin = (t-z1)*f1
+    if t_kelvin < 0:
+        print('Result is below absolute zero')
+        return float('NaN')
+    t_out = t_kelvin/f2 + z2
+    return round(t_out, 8)
+
 ####################
 ### General Math ###
 ####################
@@ -347,35 +365,6 @@ def pretty_dms(lat, lon):
     return (
     	f'{abs(latd):.0f}˚ {latm:.0f}\' {lats:.3f}" {ns_hemisphere}, '
         f'{abs(lond):.0f}˚ {lonm:.0f}\' {lons:.3f}" {ew_hemisphere}')
-
-###############################
-### Temperature Conversions ###
-###############################
-
-# Absolute zero checks
-abs_zero = {
-    'f': -459.67,
-    'c': -273.15,
-    'k': 0,
-    'r': 0}
-def temp_check_zero(temp, scale):
-    if temp < abs_zero[scale]:
-        print('Result is below absolute zero')
-        return float('NaN')
-    return round(temp, 8)
-
-temp_fc = lambda f : temp_check_zero((f-32)/1.8, 'c')
-temp_cf = lambda c : temp_check_zero(c*1.8 + 32, 'f')
-temp_ck = lambda c : temp_check_zero(c+273.15, 'k')
-temp_kc = lambda k : temp_check_zero(k-273.15, 'c')
-temp_fk = lambda f : temp_check_zero((f+459.67)/1.8, 'k')
-temp_kf = lambda k : temp_check_zero(k*1.8 - 459.67, 'f')
-temp_fr = lambda f : temp_check_zero(f+459.67, 'r')
-temp_rf = lambda r : temp_check_zero(r-459.67, 'f')
-temp_kr = lambda k : temp_check_zero(k*1.8, 'r')
-temp_rk = lambda r : temp_check_zero(r/1.8, 'k')
-temp_cr = lambda c : temp_check_zero((c+273.15)*1.8, 'r')
-temp_rc = lambda r : temp_check_zero(r/1.8 - 273.15, 'c')
 
 ###############
 ### Vectors ###
