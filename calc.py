@@ -523,4 +523,5 @@ def data(gb, total, reset_day=config.cellular_reset_day):
 quit = exit
 bye = exit
 
-print(f'PyDesk, version {script_version}')
+if __name__ == '__main__':
+    print(f'PyDesk, version {script_version}')
