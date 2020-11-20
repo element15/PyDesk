@@ -337,7 +337,7 @@ def to_dms(n):
     n_pos = abs(n)
     degrees = int(n_pos)
     minutes_full = 60 * (n_pos-degrees)
-    minutes = int(min_full)
+    minutes = int(minutes_full)
     seconds = 60 * (minutes_full-minutes)
     return copysign(degrees, hemisphere), minutes, seconds
 def from_dms(n):
