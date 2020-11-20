@@ -106,6 +106,30 @@ asinhd = to_deg(asinh)
 acoshd = to_deg(acosh)
 atanhd = to_deg(atanh)
 
+# Exotic trig functions
+versin = lambda x : 1-cos(x)
+coversin = lambda x : 1-sin(x)
+haversin = lambda x : versin(x)/2
+hacoversin = lambda x : coversin(x)/2
+aversin = lambda x : acos(1-x)
+acoversin = lambda x : asin(1-x)
+ahaversin = lambda x : acos(1-2*x)
+ahacoversin = lambda x : asin(1-2*x)
+
+versind = to_rad(versin)
+coversind = to_rad(coversin)
+haversind = to_rad(haversin)
+hacoversind = to_rad(hacoversin)
+aversind = to_deg(aversin)
+acoversind = to_deg(acoversin)
+ahaversind = to_deg(ahaversin)
+ahacoversin = to_deg(ahacoversin)
+
+hav = haversin
+havd = haversind
+ahav = ahaversin
+ahavd = ahaversind
+
 exp10 = lambda x, y : x * 10**y
 
 si_prefixes = {
@@ -235,6 +259,12 @@ def lint(x1, xn, x2, y1, y2):
 
 # Pythagorean leg
 leg = lambda a, c : sqrt(abs(c**2 - a**2))
+
+def great_circle(lat1, lon1, lat2, lon2):
+    """Calculate the great circle distance between two points."""
+    central_angle = ahav( # Radians
+        havd(lat2-lat1) + cosd(lat1)*cosd(lat2)*havd(lon2-lon1))
+    return earth_dia/2*central_angle
 
 ######################
 ### Thermodynamics ###
