@@ -1,6 +1,6 @@
-#!/usr/bin/env python3 -i
+#!/usr/bin/env -S python3 -i
 
-script_version = "20-925c"
+script_version = "20-c17a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
