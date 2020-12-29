@@ -1,6 +1,6 @@
 #!/usr/bin/env -S python3 -i
 
-script_version = "20-c17a"
+script_version = "20-c29a"
 # calc.py
 #
 # Loads a list set of functions and variables for everyday calculator
@@ -40,7 +40,6 @@ import string
 import subprocess
 
 import numpy as np
-import pyproj
 
 import config
 
@@ -384,9 +383,6 @@ def pretty_dms(lat, lon):
     return (
     	f'{abs(latd):.0f}˚ {latm:.0f}\' {lats:.3f}" {ns_hemisphere}, '
         f'{abs(lond):.0f}˚ {lonm:.0f}\' {lons:.3f}" {ew_hemisphere}')
-
-ecef_lla = pyproj.Transformer.from_crs(EPSG_ECEF, EPSG_LLA).transform
-lla_ecef = pyproj.Transformer.from_crs(EPSG_LLA, EPSG_ECEF).transform
 
 ###############
 ### Vectors ###
